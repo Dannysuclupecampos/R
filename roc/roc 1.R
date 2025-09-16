@@ -96,4 +96,5 @@ epi.tests(tabla)
 # * El script tiene como objetivo principal crear un modelo de predicción de Dengue basado en los niveles de plaquetas, evaluar su desempeño con una curva ROC, y luego usar un punto de corte específico para clasificar los resultados y obtener métricas de rendimiento del modelo.
 # 
 # Si necesitas algún detalle más, ¡avísame!
+
   
