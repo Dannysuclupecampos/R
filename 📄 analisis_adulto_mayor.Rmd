@@ -1,0 +1,205 @@
+---
+title: "Análisis Adulto Mayor"
+author: "Omar Suclupe"
+date: "`r Sys.Date()`"
+output: 
+  github_document:
+    toc: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+1. Configuración inicial
+Escritura
+Copiar
+setwd("C:/Users/user/Documents/Articulos/Adulto mayor -20251101T185610Z-1-001/Adulto mayor")
+
+library(tidyverse)
+library(readxl)
+base <- read_excel("FINAL EVELYN.xlsx")
+
+2. Variable Edad
+Escritura
+Copiar
+base <- base %>%
+mutate(
+edad_grupo = case_when(
+edad == 1 ~ "60 a 70 años",
+edad == 2 ~ "71 a 80 años",
+edad == 3 ~ "81 a 90 años",
+TRUE ~ NA_character_
+)
+)
+
+base %>%
+count(edad_grupo) %>%
+mutate(porcentaje = n/sum(n)*100)
+
+3. Variable Sexo
+Escritura
+Copiar
+base <- base %>%
+mutate(
+sexo = case_when(
+sexo == 1 ~ "Masculino",
+sexo == 2 ~ "Femenino",
+TRUE ~ NA_character_
+)
+)
+
+base %>%
+count(sexo) %>%
+mutate(porcentaje = n/sum(n)*100)
+
+4. Percepción Total
+Escritura
+Copiar
+base <- base %>%
+mutate(p_total = rowSums(across(p1), na.rm = TRUE)) %>%
+mutate(
+p_total_cat = case_when(
+p_total <= 3 ~ "Desfavorable",
+p_total <= 5 ~ "Medianamente favorable",
+p_total <= 8 ~ "Favorable"
+)
+)
+
+base %>% count(p_total_cat) %>% mutate(porcentaje = n/sum(n)*100)
+
+5. Dimensiones de Percepción
+Sensaciones
+Escritura
+Copiar
+base <- base %>%
+mutate(
+p_sens = rowSums(across(p1), na.rm = TRUE),
+p_sens_cat = case_when(
+p_sens %in% 0:1 ~ "Desfavorable",
+p_sens == 2 ~ "Medianamente favorable",
+p_sens %in% 3:4 ~ "Favorable"
+)
+)
+
+Impulsos Internos
+Escritura
+Copiar
+base <- base %>%
+mutate(
+p_imp_int = rowSums(across(p5), na.rm = TRUE),
+p_imp_int_cat = case_when(
+p_imp_int %in% 0:1 ~ "Desfavorable",
+p_imp_int == 2 ~ "Medianamente favorable",
+p_imp_int %in% 3:4 ~ "Favorable"
+)
+)
+
+6. Actitud Total y Dimensiones
+Escritura
+Copiar
+base <- base %>%
+mutate(ac_total = rowSums(across(a1), na.rm = TRUE)) %>%
+mutate(
+ac_total_cat = case_when(
+ac_total <= 3 ~ "Negativa",
+ac_total <= 5 ~ "Moderada",
+ac_total <= 8 ~ "Positiva"
+)
+)
+
+Cognitivo
+Escritura
+Copiar
+base <- base %>%
+mutate(ac_cog = a1 + a2,
+ac_cog_cat = case_when(
+ac_cog == 0 ~ "Negativa",
+ac_cog == 1 ~ "Moderada",
+ac_cog == 2 ~ "Positiva"
+))
+
+Afectivo
+Escritura
+Copiar
+base <- base %>%
+mutate(ac_afect = a3 + a4 + a5,
+ac_afect_cat = case_when(
+ac_afect %in% 0:1 ~ "Negativa",
+ac_afect == 2 ~ "Moderada",
+ac_afect == 3 ~ "Positiva"
+))
+
+Conductual
+Escritura
+Copiar
+base <- base %>%
+mutate(ac_cond = a6 + a7 + a8,
+ac_cond_cat = case_when(
+ac_cond %in% 0:1 ~ "Negativa",
+ac_cond == 2 ~ "Moderada",
+ac_cond == 3 ~ "Positiva"
+))
+
+7. Medidas de Tendencia Central
+Escritura
+Copiar
+resumen <- base %>%
+select(p_total, p_sens, p_imp_int, ac_total, ac_cog, ac_afect, ac_cond) %>%
+summarise(across(everything(), list(
+N = ~sum(!is.na(.)),
+Media = ~mean(., na.rm = TRUE),
+DE = ~sd(., na.rm = TRUE),
+Mediana = ~median(., na.rm = TRUE),
+IQR = ~IQR(., na.rm = TRUE),
+Min = ~min(., na.rm = TRUE),
+Max = ~max(., na.rm = TRUE)
+), .names = "{.col}_{.fn}"))
+resumen
+
+8. Guardar Base Limpia
+Escritura
+Copiar
+saveRDS(base, "base_limpia.rds")
+
+9. Correlaciones de Spearman
+Escritura
+Copiar
+library(purrr)
+library(broom)
+
+vars <- c("p_total", "p_sens", "p_imp_int", "ac_cog", "ac_afect", "ac_cond")
+
+cor_tabla <- map_dfr(vars, ~{
+cor.test(base[[.x]], base$ac_total, method = "spearman") %>%
+tidy() %>%
+mutate(var_indep = .x, var_depend = "ac_total")
+}) %>%
+mutate(estimate = round(estimate,3),
+p.value = round(p.value,3),
+interpretacion = if_else(p.value < 0.05, "Significativa", "No significativa"))
+
+cor_tabla
+
+10. Modelos RP Bivariados
+Escritura
+Copiar
+library(broom)
+
+vars <- c("edad_grupo","sexo","p_total_cat","p_sens_cat","p_imp_int_cat","ac_cog_cat","ac_afect_cat","ac_cond_cat")
+
+ajustar_modelo <- function(var) {
+formula <- as.formula(paste("ac_total_dic_num ~", var))
+modelo <- glm(formula, family = quasipoisson(link = "log"), data = base)
+tidy(modelo, exponentiate = TRUE, conf.int = TRUE, conf.level = 0.95) %>%
+mutate(variable = var)
+}
+
+resultados <- lapply(vars, ajustar_modelo) %>% bind_rows() %>%
+select(variable, term, estimate, conf.low, conf.high, p.value) %>%
+rename(RP = estimate, IC_inf = conf.low, IC_sup = conf.high, pvalor = p.value) %>%
+filter(term != "(Intercept)")
+
+resultados
+write_xlsx(resultados, "Rp_bivariados.xlsx")
+
+✅ Instrucciones para GitHub
