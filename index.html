@@ -1,0 +1,2636 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadoras de laboratorio</title>
+<style>
+:root{--bg:#f6f7f9;--surf:#fff;--tx:#1d2330;--mut:#5b6475;--ac:#1f6feb;--bd:#d9dde4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--surf:#1d2128;--tx:#e8ebf0;--mut:#9aa3b2;--ac:#5b9dff;--bd:#2e343e}}
+:root[data-theme="dark"]{--bg:#14171c;--surf:#1d2128;--tx:#e8ebf0;--mut:#9aa3b2;--ac:#5b9dff;--bd:#2e343e}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;display:flex;flex-direction:column}
+nav{display:flex;gap:4px;overflow-x:auto;padding:8px 10px 0;background:var(--surf);border-bottom:1px solid var(--bd);flex:none;scrollbar-width:thin}
+nav button{flex:none;border:0;background:none;color:var(--mut);font:600 14px system-ui,sans-serif;padding:10px 14px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+nav button[aria-selected="true"]{color:var(--ac);border-bottom-color:var(--ac)}
+nav button:hover{color:var(--tx)}
+main{flex:1;min-height:0;position:relative}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+iframe[hidden]{display:none}
+</style></head><body>
+<nav role="tablist"><button role="tab" id="t0" aria-selected="true" data-i="0">Serie roja</button><button role="tab" id="t1" aria-selected="false" data-i="1">Nugent / Hay-Ison</button><button role="tab" id="t2" aria-selected="false" data-i="2">ITU (Bilsen)</button><button role="tab" id="t3" aria-selected="false" data-i="3">Espermático OMS</button><button role="tab" id="t4" aria-selected="false" data-i="4">Obstétrica</button></nav>
+<main><iframe id="p0" title="Serie roja" sandbox="allow-scripts allow-same-origin allow-modals allow-downloads"  srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
+&lt;title&gt;Calculadora serie roja&lt;/title&gt;
+&lt;style&gt;
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mu:#5b6573;--bd:#d9dee5;--ac:#b3261e;--acx:#fff;--ok:#1e7a46;--wa:#9a6700;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=&quot;light&quot;]){--bg:#14171a;--card:#1d2126;--tx:#e8ebef;--mu:#9aa5b1;--bd:#333a42;--ac:#ef6a60;--acx:#14171a;--ok:#5fcf8f;--wa:#e3b341;color-scheme:dark}}
+:root[data-theme=&quot;dark&quot;]{--bg:#14171a;--card:#1d2126;--tx:#e8ebef;--mu:#9aa5b1;--bd:#333a42;--ac:#ef6a60;--acx:#14171a;--ok:#5fcf8f;--wa:#e3b341;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:16px}
+h1{font-size:1.25rem;margin:4px 0 2px}
+.sub{color:var(--mu);font-size:.85rem;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:.8rem;color:var(--mu);margin-bottom:3px}
+input,select{width:100%;box-sizing:border-box;font:inherit;padding:9px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
+.full{grid-column:1/-1}
+textarea{width:100%;box-sizing:border-box;min-height:110px;font:inherit;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);resize:vertical}
+button{font:inherit;font-weight:600;border:0;border-radius:8px;padding:10px 16px;background:var(--ac);color:var(--acx);cursor:pointer;margin-top:8px}
+button.sec{background:transparent;color:var(--mu);border:1px solid var(--bd);margin-left:6px}
+.al{font-size:.85rem;margin:4px 0 0;padding-left:18px}
+.al li{margin:2px 0}.w{color:var(--wa)}.o{color:var(--ok)}
+.nt{font-size:.75rem;color:var(--mu);margin-top:10px}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;main&gt;
+&lt;h1&gt;Interpretación de serie roja&lt;/h1&gt;
+&lt;p class=&quot;sub&quot;&gt;Basada en ISP Chile, Recomendaciones para la interpretación del hemograma (v3, 2023).&lt;/p&gt;
+
+&lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;grid&quot;&gt;
+&lt;div&gt;&lt;label for=&quot;hto&quot;&gt;Hto (%)&lt;/label&gt;&lt;input id=&quot;hto&quot; type=&quot;number&quot; step=&quot;0.1&quot; inputmode=&quot;decimal&quot;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;label for=&quot;hb&quot;&gt;Hb (g/dL)&lt;/label&gt;&lt;input id=&quot;hb&quot; type=&quot;number&quot; step=&quot;0.1&quot; inputmode=&quot;decimal&quot;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;label for=&quot;vcm&quot;&gt;VCM (fL)&lt;/label&gt;&lt;input id=&quot;vcm&quot; type=&quot;number&quot; step=&quot;0.1&quot; inputmode=&quot;decimal&quot;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;label for=&quot;hcm&quot;&gt;HCM (pg)&lt;/label&gt;&lt;input id=&quot;hcm&quot; type=&quot;number&quot; step=&quot;0.1&quot; inputmode=&quot;decimal&quot;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;label for=&quot;chcm&quot;&gt;CHCM (g/dL)&lt;/label&gt;&lt;input id=&quot;chcm&quot; type=&quot;number&quot; step=&quot;0.1&quot; inputmode=&quot;decimal&quot;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;label for=&quot;ade&quot;&gt;ADE / CV (%)&lt;/label&gt;&lt;input id=&quot;ade&quot; type=&quot;number&quot; step=&quot;0.1&quot; inputmode=&quot;decimal&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;full&quot;&gt;&lt;label for=&quot;adh&quot;&gt;ADH (opcional)&lt;/label&gt;&lt;input id=&quot;adh&quot; type=&quot;number&quot; step=&quot;0.1&quot; inputmode=&quot;decimal&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+&lt;label for=&quot;out&quot;&gt;Informe (listo para copiar)&lt;/label&gt;
+&lt;textarea id=&quot;out&quot; readonly&gt;&lt;/textarea&gt;
+&lt;button id=&quot;cp&quot; type=&quot;button&quot;&gt;Copiar&lt;/button&gt;&lt;button id=&quot;cl&quot; class=&quot;sec&quot; type=&quot;button&quot;&gt;Limpiar&lt;/button&gt;
+&lt;ul class=&quot;al&quot; id=&quot;al&quot;&gt;&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;p class=&quot;nt&quot;&gt;Cruces según tabla de correlación de la guía. Valores en brechas entre rangos de la tabla se asignan a la categoría contigua. Poiquilocitosis e inclusiones requieren frotis y no se calculan aquí. Herramienta de apoyo: validar siempre con el frotis.&lt;/p&gt;
+&lt;/main&gt;
+&lt;script&gt;
+var $=function(i){return document.getElementById(i)};
+function num(i){var v=$(i).value;return v===&quot;&quot;?null:parseFloat(v)}
+function cr(n){return &quot;(&quot;+new Array(n+1).join(&quot;+&quot;)+&quot;)&quot;}
+function calc(){
+var hto=num(&quot;hto&quot;),hb=num(&quot;hb&quot;),vcm=num(&quot;vcm&quot;),hcm=num(&quot;hcm&quot;),chcm=num(&quot;chcm&quot;),ade=num(&quot;ade&quot;),adh=num(&quot;adh&quot;);
+var al=[],out=[],tam=&quot;&quot;,cro=&quot;&quot;,ani=&quot;&quot;,anc=&quot;&quot;;
+if(vcm!==null){
+ if(vcm&lt;82){var n=vcm&gt;=70?1:(vcm&gt;=60?2:3);tam=&quot;microcíticos &quot;+cr(n);
+  if(vcm&gt;=80)al.push([&quot;w&quot;,&quot;VCM 80–81,9 fL: la guía define micro ≤80 fL pero la tabla parte en 70. Se asignó (+).&quot;]);}
+ else if(vcm&gt;=100){var m=vcm&lt;110?1:(vcm&lt;120?2:3);tam=&quot;macrocíticos &quot;+cr(m);}
+ else {tam=&quot;normocíticos&quot;;if(vcm&gt;96)al.push([&quot;w&quot;,&quot;VCM 96–99,9 fL: sobre el rango normal de la guía, sin categoría. No se informa.&quot;]);}
+}
+if(hcm!==null){
+ if(hcm&lt;28){var h=hcm&lt;16?3:(hcm&lt;22?2:1);cro=&quot;hipocrómicos &quot;+cr(h);}
+ else if(hcm&lt;=32)cro=&quot;normocrómicos&quot;;
+ else al.push([&quot;w&quot;,&quot;HCM &gt;32 pg: la guía no categoriza hipercromía.&quot;]);
+}
+if(ade!==null&amp;&amp;ade&gt;14.5){var a=ade&lt;19?1:(ade&lt;23?2:3);ani=&quot;Anisocitosis &quot;+cr(a)+&quot;.&quot;;}
+if(adh!==null&amp;&amp;adh&gt;3.2){var d=adh&lt;3.7?1:(adh&lt;=4?2:3);anc=&quot;Anisocromía &quot;+cr(d)+&quot;.&quot;;}
+
+if(ani)out.push(ani);
+var er=[tam,cro].filter(Boolean);
+if(er.length)out.push(&quot;Eritrocitos &quot;+er.join(&quot;, &quot;)+&quot;.&quot;);
+if(anc)out.push(anc);
+
+if(hb!==null&amp;&amp;hto!==null&amp;&amp;hto&gt;0){
+ var cc=hb/hto*100;
+ if(chcm===null)al.push([&quot;o&quot;,&quot;CHCM calculada: &quot;+cc.toFixed(1)+&quot; g/dL.&quot;]);
+ else if(Math.abs(cc-chcm)&gt;2)al.push([&quot;w&quot;,&quot;CHCM informada (&quot;+chcm+&quot;) difiere de Hb/Hto×100 (&quot;+cc.toFixed(1)+&quot;): revisar datos o muestra.&quot;]);
+ var r=hto/hb;if(r&lt;2.7||r&gt;3.3)al.push([&quot;w&quot;,&quot;Relación Hto/Hb = &quot;+r.toFixed(2)+&quot; (esperada ≈3): revisar interferencias.&quot;]);
+}
+if(chcm!==null&amp;&amp;(chcm&lt;32||chcm&gt;36))al.push([&quot;w&quot;,&quot;CHCM fuera de 32–36 g/dL (referencia general, no de la guía).&quot;]);
+if(ade!==null&amp;&amp;ade&lt;11.5)al.push([&quot;w&quot;,&quot;ADE bajo el rango de la guía (11,5–14,5 %).&quot;]);
+
+$(&quot;out&quot;).value=out.join(&quot; &quot;);
+$(&quot;al&quot;).innerHTML=al.map(function(x){return &#x27;&lt;li class=&quot;&#x27;+x[0]+&#x27;&quot;&gt;&#x27;+x[1]+&#x27;&lt;/li&gt;&#x27;}).join(&quot;&quot;);
+}
+document.querySelectorAll(&quot;input,select&quot;).forEach(function(e){e.addEventListener(&quot;input&quot;,calc)});
+$(&quot;cp&quot;).onclick=function(){var t=$(&quot;out&quot;);t.focus();t.select();var ok=false;
+ try{navigator.clipboard.writeText(t.value);ok=true}catch(e){}
+ if(!ok){try{ok=document.execCommand(&quot;copy&quot;)}catch(e){}}
+ $(&quot;cp&quot;).textContent=ok?&quot;Copiado ✓&quot;:&quot;Selecciona y copia&quot;;setTimeout(function(){$(&quot;cp&quot;).textContent=&quot;Copiar&quot;},1500)};
+$(&quot;cl&quot;).onclick=function(){document.querySelectorAll(&quot;input&quot;).forEach(function(e){e.value=&quot;&quot;});calc()};
+calc();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe><iframe id="p1" title="Nugent / Hay-Ison" sandbox="allow-scripts allow-same-origin allow-modals allow-downloads" hidden srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Calculadora de Nugent y Hay/Ison&lt;/title&gt;
+&lt;style&gt;
+  :root{
+    --bg:#f4f5f3; --card:#ffffff; --border:#dcdad2; --text:#1f1f1d;
+    --text-secondary:#666; --success:#1d9e75; --warning:#ba7517; --danger:#a32d2d;
+    --accent:#185fa5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Arial, sans-serif;
+    background:var(--bg); color:var(--text); margin:0; padding:24px 16px;
+    display:flex; justify-content:center;
+  }
+  .wrap{max-width:480px; width:100%;}
+  h1{font-size:20px; font-weight:600; margin:0 0 4px;}
+  .subtitle{font-size:13px; color:var(--text-secondary); margin:0 0 24px;}
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:20px; margin-bottom:16px;
+  }
+  label{display:block; font-size:14px; font-weight:600; margin-bottom:8px;}
+  select{
+    width:100%; padding:10px 12px; font-size:14px; border-radius:8px;
+    border:1px solid var(--border); background:#fff; color:var(--text);
+  }
+  .field{margin-bottom:18px;}
+  .field:last-child{margin-bottom:0;}
+  .result-card{
+    background:#eef0ec; border-radius:12px; padding:20px; text-align:center; margin-bottom:16px;
+  }
+  .result-label{font-size:13px; color:var(--text-secondary); margin:0 0 4px;}
+  .score{font-size:36px; font-weight:700; margin:0;}
+  .interp{font-size:15px; font-weight:600; margin:8px 0 0;}
+  .hr{border-top:1px solid var(--border); margin:16px 0;}
+  .hay-out{font-size:13px; color:var(--text-secondary); margin-top:10px;}
+  .table-title{font-size:14px; font-weight:600; margin:0 0 10px;}
+  table{width:100%; border-collapse:collapse; font-size:12px;}
+  th,td{border:1px solid var(--border); padding:6px 8px; text-align:center;}
+  th{background:#eef0ec;}
+  footer{font-size:11px; color:var(--text-secondary); text-align:center; margin-top:20px;}
+  .amsel-item{display:flex; align-items:flex-start; gap:8px; font-size:13px; font-weight:400; margin-bottom:10px; cursor:pointer;}
+  .amsel-item input{margin-top:2px; flex-shrink:0;}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;wrap&quot;&gt;
+  &lt;h1&gt;Calculadora de Nugent / Hay-Ison&lt;/h1&gt;
+  &lt;p class=&quot;subtitle&quot;&gt;Diagnóstico de vaginosis bacteriana por tinción de Gram&lt;/p&gt;
+
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;div class=&quot;field&quot;&gt;
+      &lt;label&gt;Bacilos grampositivos (Lactobacillus)&lt;/label&gt;
+      &lt;select id=&quot;lacto&quot;&gt;
+        &lt;option value=&quot;0&quot;&gt;&amp;gt;30 por campo&lt;/option&gt;
+        &lt;option value=&quot;1&quot;&gt;5-30 por campo&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;1-4 por campo&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;&amp;lt;1 por campo&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;0 por campo&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;field&quot;&gt;
+      &lt;label&gt;Bacilos gramnegativos (Gardnerella / Bacteroides)&lt;/label&gt;
+      &lt;select id=&quot;gard&quot;&gt;
+        &lt;option value=&quot;4&quot;&gt;&amp;gt;30 por campo&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;5-30 por campo&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;1-4 por campo&lt;/option&gt;
+        &lt;option value=&quot;1&quot;&gt;&amp;lt;1 por campo&lt;/option&gt;
+        &lt;option value=&quot;0&quot;&gt;0 por campo&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;field&quot;&gt;
+      &lt;label&gt;Bacilos Gram-variables curvos (Mobiluncus)&lt;/label&gt;
+      &lt;select id=&quot;curv&quot;&gt;
+        &lt;option value=&quot;2&quot;&gt;&amp;gt;5 por campo&lt;/option&gt;
+        &lt;option value=&quot;1&quot;&gt;&amp;lt;1-4 por campo&lt;/option&gt;
+        &lt;option value=&quot;0&quot;&gt;0 por campo&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;result-card&quot;&gt;
+    &lt;p class=&quot;result-label&quot;&gt;Puntuación de Nugent (0-10)&lt;/p&gt;
+    &lt;p class=&quot;score&quot; id=&quot;score&quot;&gt;0&lt;/p&gt;
+    &lt;p class=&quot;interp&quot; id=&quot;interp&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;label&gt;Correlación Hay/Ison (opcional, morfología observada)&lt;/label&gt;
+    &lt;select id=&quot;hayison&quot;&gt;
+      &lt;option value=&quot;&quot;&gt;— No evaluado —&lt;/option&gt;
+      &lt;option value=&quot;1&quot;&gt;Grado 1 — normal (predominio Lactobacillus)&lt;/option&gt;
+      &lt;option value=&quot;2&quot;&gt;Grado 2 — intermedio (flora mixta)&lt;/option&gt;
+      &lt;option value=&quot;3&quot;&gt;Grado 3 — vaginosis bacteriana (Gardnerella/Mobiluncus)&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;p class=&quot;hay-out&quot; id=&quot;hayison-out&quot;&gt;&lt;/p&gt;
+    &lt;div class=&quot;hr&quot;&gt;&lt;/div&gt;
+    &lt;p class=&quot;table-title&quot;&gt;Referencia de interpretación&lt;/p&gt;
+    &lt;table&gt;
+      &lt;tr&gt;&lt;th&gt;Puntuación&lt;/th&gt;&lt;th&gt;Interpretación&lt;/th&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;0-3&lt;/td&gt;&lt;td&gt;Normal&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;4-6&lt;/td&gt;&lt;td&gt;Intermedio&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;7-10&lt;/td&gt;&lt;td&gt;Vaginosis bacteriana&lt;/td&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;label&gt;Criterios de Amsel&lt;/label&gt;
+    &lt;label class=&quot;amsel-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;amsel&quot;&gt; Flujo vaginal homogéneo, filante, blanco o gris&lt;/label&gt;
+    &lt;label class=&quot;amsel-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;amsel&quot;&gt; Células clave (clue cells) en el examen microscópico&lt;/label&gt;
+    &lt;label class=&quot;amsel-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;amsel&quot;&gt; pH vaginal &amp;gt; 4.5&lt;/label&gt;
+    &lt;label class=&quot;amsel-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;amsel&quot;&gt; Olor a aminas (pescado) tras KOH al 10%&lt;/label&gt;
+
+    &lt;div class=&quot;result-card&quot; style=&quot;margin-top:14px; margin-bottom:0;&quot;&gt;
+      &lt;p class=&quot;result-label&quot;&gt;Criterios de Amsel cumplidos&lt;/p&gt;
+      &lt;p class=&quot;score&quot; id=&quot;amsel-score&quot; style=&quot;font-size:28px;&quot;&gt;0/4&lt;/p&gt;
+      &lt;p class=&quot;interp&quot; id=&quot;amsel-interp&quot;&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p style=&quot;font-size:12px; color:var(--text-secondary); margin-top:10px;&quot;&gt;Requiere 3/4 para el diagnóstico.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;footer&gt;Criterios de Nugent, Hay/Ison y Amsel — referencia clínica&lt;/footer&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function calc(){
+  var l = parseInt(document.getElementById(&#x27;lacto&#x27;).value);
+  var g = parseInt(document.getElementById(&#x27;gard&#x27;).value);
+  var c = parseInt(document.getElementById(&#x27;curv&#x27;).value);
+  var total = l + g + c;
+  document.getElementById(&#x27;score&#x27;).textContent = total;
+  var interpEl = document.getElementById(&#x27;interp&#x27;);
+  var label, color;
+  if(total &lt;= 3){ label = &#x27;Normal&#x27;; color = &#x27;var(--success)&#x27;; }
+  else if(total &lt;= 6){ label = &#x27;Intermedio&#x27;; color = &#x27;var(--warning)&#x27;; }
+  else { label = &#x27;Vaginosis bacteriana&#x27;; color = &#x27;var(--danger)&#x27;; }
+  interpEl.textContent = label;
+  interpEl.style.color = color;
+}
+document.getElementById(&#x27;lacto&#x27;).addEventListener(&#x27;change&#x27;, calc);
+document.getElementById(&#x27;gard&#x27;).addEventListener(&#x27;change&#x27;, calc);
+document.getElementById(&#x27;curv&#x27;).addEventListener(&#x27;change&#x27;, calc);
+
+function hayCalc(){
+  var v = document.getElementById(&#x27;hayison&#x27;).value;
+  var out = document.getElementById(&#x27;hayison-out&#x27;);
+  var texts = {
+    &#x27;1&#x27;: &#x27;Concordante con Nugent 0-3.&#x27;,
+    &#x27;2&#x27;: &#x27;Concordante con Nugent 4-6.&#x27;,
+    &#x27;3&#x27;: &#x27;Concordante con Nugent 7-10.&#x27;
+  };
+  out.textContent = texts[v] || &#x27;&#x27;;
+}
+document.getElementById(&#x27;hayison&#x27;).addEventListener(&#x27;change&#x27;, hayCalc);
+
+function amselCalc(){
+  var boxes = document.querySelectorAll(&#x27;.amsel&#x27;);
+  var count = 0;
+  boxes.forEach(function(b){ if(b.checked) count++; });
+  document.getElementById(&#x27;amsel-score&#x27;).textContent = count + &#x27;/4&#x27;;
+  var interpEl = document.getElementById(&#x27;amsel-interp&#x27;);
+  if(count &gt;= 3){
+    interpEl.textContent = &#x27;Diagnóstico positivo de vaginosis bacteriana&#x27;;
+    interpEl.style.color = &#x27;var(--danger)&#x27;;
+  } else {
+    interpEl.textContent = &#x27;No cumple criterio diagnóstico (se requieren ≥3/4)&#x27;;
+    interpEl.style.color = &#x27;var(--text-secondary)&#x27;;
+  }
+}
+document.querySelectorAll(&#x27;.amsel&#x27;).forEach(function(b){
+  b.addEventListener(&#x27;change&#x27;, amselCalc);
+});
+
+calc();
+amselCalc();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe><iframe id="p2" title="ITU (Bilsen)" sandbox="allow-scripts allow-same-origin allow-modals allow-downloads" hidden srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
+&lt;title&gt;Calculadora de puntaje ITU · Estándar de referencia&lt;/title&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;style&gt;
+:root{
+  --bg:#F4F7F8; --surface:#FFFFFF; --ink:#12212A; --muted:#566871; --line:#D2DCE1;
+  --accent:#0B6E7F; --accent-soft:#E1F0F3;
+  --c-no:#6B7A83; --c-pos:#B7791F; --c-pro:#C2571A; --c-def:#A4262C;
+  --warn-bg:#FFF4E0; --warn-ink:#7A4A00;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme=&quot;light&quot;]){
+    --bg:#0E1A20; --surface:#15252D; --ink:#E6EEF1; --muted:#95A7B0; --line:#2A3C45;
+    --accent:#52B8C9; --accent-soft:#17343C;
+    --c-no:#9AA9B1; --c-pos:#E3AE45; --c-pro:#F08F52; --c-def:#F2767F;
+    --warn-bg:#3A2D12; --warn-ink:#F1CF8E;
+  }
+}
+:root[data-theme=&quot;dark&quot;]{
+  --bg:#0E1A20; --surface:#15252D; --ink:#E6EEF1; --muted:#95A7B0; --line:#2A3C45;
+  --accent:#52B8C9; --accent-soft:#17343C;
+  --c-no:#9AA9B1; --c-pos:#E3AE45; --c-pro:#F08F52; --c-def:#F2767F;
+  --warn-bg:#3A2D12; --warn-ink:#F1CF8E;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:inherit}
+body{
+  margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+  font:400 16px/1.5 &quot;IBM Plex Sans&quot;,system-ui,-apple-system,&quot;Segoe UI&quot;,Roboto,sans-serif;
+  font-variant-numeric:tabular-nums;
+  padding-bottom:132px;
+}
+main{max-width:640px;margin:0 auto;padding:20px 16px 0}
+h1{font-size:1.45rem;line-height:1.25;margin:4px 0 6px;font-weight:600}
+.sub{color:var(--muted);font-size:.9rem;margin:0 0 14px}
+.scope{font-size:.85rem;color:var(--muted);border-left:3px solid var(--accent);padding:2px 0 2px 10px;margin:0 0 22px}
+section{border-top:1px solid var(--line);padding:18px 0 6px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
+h2{font-size:1.02rem;margin:0;font-weight:600}
+.chip{font-size:.82rem;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.hint{font-size:.82rem;color:var(--muted);margin:2px 0 10px}
+.grp{font-size:.85rem;font-weight:600;color:var(--muted);margin:12px 0 4px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+label.opt{display:flex;align-items:center;gap:12px;min-height:44px;padding:6px 2px;cursor:pointer}
+label.opt input{width:20px;height:20px;accent-color:var(--accent);flex:none;margin:0}
+label.opt small{display:block;color:var(--muted);font-size:.8rem;line-height:1.3}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0;inset:0;margin:0}
+.seg span{display:block;padding:10px 18px;min-width:64px;text-align:center;font-weight:500}
+.seg input:checked + span{background:var(--accent);color:#fff}
+.seg input:focus-visible + span{outline:3px solid var(--accent);outline-offset:-3px}
+@media (prefers-color-scheme: dark){:root:not([data-theme=&quot;light&quot;]) .seg input:checked + span{color:#07161B}}
+:root[data-theme=&quot;dark&quot;] .seg input:checked + span{color:#07161B}
+.f{display:flex;flex-direction:column;gap:4px}
+.f span.l{font-size:.85rem;color:var(--muted)}
+input[type=number],select{
+  font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;padding:10px 12px;min-height:44px;width:100%;
+}
+input[type=number]:focus-visible,select:focus-visible,label.opt input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dim{opacity:.4;pointer-events:none}
+.hide{display:none}
+.note{background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:10px 12px;font-size:.86rem;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.82rem}
+td.n{text-align:right;font-weight:600;white-space:nowrap}
+tfoot td{border-bottom:0;font-weight:600}
+details{margin:14px 0}
+summary{cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center}
+details ul{margin:4px 0 0;padding-left:20px;color:var(--muted);font-size:.86rem}
+details li{margin-bottom:6px}
+button.copy{font:inherit;font-weight:500;min-height:44px;padding:8px 16px;border-radius:10px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+button.copy:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.sys{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--accent-soft);font-size:.92rem}
+.foot{font-size:.78rem;color:var(--muted);margin:18px 0 8px}
+/* barra fija de resultado */
+.bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--surface);
+  border-top:1px solid var(--line);
+  padding:10px 16px calc(12px + env(safe-area-inset-bottom,0px));
+}
+.bar-in{max-width:640px;margin:0 auto}
+.bar-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.cat{font-size:1.15rem;font-weight:600}
+.score{font-size:1.9rem;font-weight:600;line-height:1}
+.score small{font-size:.8rem;color:var(--muted);font-weight:400;margin-left:4px}
+.gauge{position:relative;display:flex;height:10px;border-radius:5px;overflow:visible;margin:10px 0 4px}
+.gauge i{display:block;height:100%}
+.gauge i:nth-child(1){flex:3;background:var(--c-no);border-radius:5px 0 0 5px}
+.gauge i:nth-child(2){flex:2;background:var(--c-pos)}
+.gauge i:nth-child(3){flex:3;background:var(--c-pro)}
+.gauge i:nth-child(4){flex:4;background:var(--c-def);border-radius:0 5px 5px 0}
+.mk{position:absolute;top:-5px;width:4px;height:20px;border-radius:2px;background:var(--ink);transform:translateX(-2px);transition:left .25s ease}
+.mk.off{display:none}
+.scale{display:flex;font-size:.7rem;color:var(--muted)}
+.scale span:nth-child(1){flex:3}.scale span:nth-child(2){flex:2}.scale span:nth-child(3){flex:3}.scale span:nth-child(4){flex:4}
+.sub2{font-size:.82rem;color:var(--muted);margin-top:2px}
+@media (prefers-reduced-motion:reduce){.mk{transition:none}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;main&gt;
+&lt;h1&gt;Calculadora de puntaje ITU&lt;/h1&gt;
+&lt;p class=&quot;sub&quot;&gt;Estándar de referencia para investigación en ITU · Bilsen et al., Lancet Infect Dis 2024 (consenso Delphi)&lt;/p&gt;
+&lt;p class=&quot;scope&quot;&gt;Adultos (incluye mayores). No aplica a ITU asociada a sonda permanente. Es una herramienta de investigación, no de decisión clínica.&lt;/p&gt;
+
+&lt;form id=&quot;f&quot; onsubmit=&quot;return false&quot; autocomplete=&quot;off&quot;&gt;
+
+&lt;section&gt;
+  &lt;div class=&quot;sh&quot;&gt;&lt;h2&gt;Paciente&lt;/h2&gt;&lt;/div&gt;
+  &lt;div class=&quot;two&quot;&gt;
+    &lt;div class=&quot;f&quot;&gt;&lt;span class=&quot;l&quot;&gt;Sexo asignado al nacer&lt;/span&gt;
+      &lt;div class=&quot;seg&quot; role=&quot;radiogroup&quot; aria-label=&quot;Sexo&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;F&quot; checked&gt;&lt;span&gt;Mujer&lt;/span&gt;&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;M&quot;&gt;&lt;span&gt;Hombre&lt;/span&gt;&lt;/label&gt;
+      &lt;/div&gt;&lt;/div&gt;
+    &lt;label class=&quot;f&quot;&gt;&lt;span class=&quot;l&quot;&gt;Edad (años)&lt;/span&gt;&lt;input id=&quot;age&quot; type=&quot;number&quot; inputmode=&quot;numeric&quot; min=&quot;18&quot; max=&quot;120&quot; placeholder=&quot;ej. 70&quot;&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;f&quot; style=&quot;margin-top:12px&quot;&gt;&lt;span class=&quot;l&quot;&gt;¿Puede expresar o percibir síntomas urinarios bajos?&lt;/span&gt;
+    &lt;div class=&quot;seg&quot; role=&quot;radiogroup&quot; aria-label=&quot;Capacidad de expresar síntomas&quot;&gt;
+      &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;capable&quot; value=&quot;yes&quot; checked&gt;&lt;span&gt;Sí&lt;/span&gt;&lt;/label&gt;
+      &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;capable&quot; value=&quot;no&quot;&gt;&lt;span&gt;No&lt;/span&gt;&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;span class=&quot;hint&quot;&gt;Ej. de &quot;No&quot;: delirium, demencia, lesión medular.&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;div class=&quot;sh&quot;&gt;&lt;h2&gt;Síntomas y signos de inicio reciente&lt;/h2&gt;&lt;span class=&quot;chip&quot; id=&quot;chip_sym&quot;&gt;0 pts&lt;/span&gt;&lt;/div&gt;
+  &lt;div id=&quot;symbox&quot;&gt;
+    &lt;div class=&quot;grp&quot;&gt;Mayores&lt;/div&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;s_dys&quot;&gt;Disuria&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;s_urg&quot;&gt;Urgencia urinaria&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;s_freq&quot;&gt;Frecuencia urinaria&lt;/label&gt;
+    &lt;div class=&quot;grp&quot;&gt;Menores&lt;/div&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;s_supra&quot;&gt;Dolor o sensibilidad suprapúbica&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;s_flank&quot;&gt;Dolor o sensibilidad en flanco / ángulo costovertebral&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;s_perin&quot;&gt;Dolor perineal o tacto prostático doloroso&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;s_incont&quot;&gt;Incontinencia urinaria&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;s_hemat&quot;&gt;Hematuria macroscópica&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;s_recog&quot;&gt;Reconocimiento de los síntomas por el paciente&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;hint hide&quot; id=&quot;symnote&quot;&gt;Sin capacidad de expresar síntomas: el dominio suma 1 punto.&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;div class=&quot;sh&quot;&gt;&lt;h2&gt;Criterios sistémicos&lt;/h2&gt;&lt;span class=&quot;chip&quot; id=&quot;chip_sys&quot;&gt;0 pts&lt;/span&gt;&lt;/div&gt;
+  &lt;p class=&quot;hint&quot;&gt;Marca solo si son de inicio reciente y sin otra fuente plausible (historia y examen).&lt;/p&gt;
+  &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;y_fever&quot;&gt;Fiebre ≥38,0 °C&lt;/label&gt;
+  &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;y_crp&quot;&gt;PCR ≥50 mg/L&lt;/label&gt;
+  &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;y_pct&quot;&gt;Procalcitonina ≥0,5 ng/mL&lt;/label&gt;
+  &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;y_wbc&quot;&gt;Leucocitos en sangre ≥12×10⁹/L&lt;/label&gt;
+  &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;y_bact&quot;&gt;Bacteriemia (mismo patógeno que el urocultivo)&lt;/label&gt;
+  &lt;div class=&quot;grp&quot;&gt;Solo para clasificar compromiso sistémico (no suman)&lt;/div&gt;
+  &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;y_sbp&quot;&gt;PAS &amp;lt;90 mm Hg sin otra causa&lt;/label&gt;
+  &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;y_abs&quot;&gt;Absceso renal&lt;/label&gt;
+  &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;y_pyo&quot;&gt;Pionefrosis&lt;/label&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;div class=&quot;sh&quot;&gt;&lt;h2&gt;Piuria&lt;/h2&gt;&lt;span class=&quot;chip&quot; id=&quot;chip_pyu&quot;&gt;— pts&lt;/span&gt;&lt;/div&gt;
+  &lt;p class=&quot;hint&quot;&gt;Debe estar cuantificada (microscopía o analizador). La tira reactiva (esterasa leucocitaria) no es suficiente en el estándar principal.&lt;/p&gt;
+  &lt;div class=&quot;two&quot;&gt;
+    &lt;label class=&quot;f&quot;&gt;&lt;span class=&quot;l&quot;&gt;Leucocitos en orina&lt;/span&gt;&lt;input id=&quot;p_val&quot; type=&quot;number&quot; inputmode=&quot;decimal&quot; min=&quot;0&quot; placeholder=&quot;valor&quot;&gt;&lt;/label&gt;
+    &lt;label class=&quot;f&quot;&gt;&lt;span class=&quot;l&quot;&gt;Unidad&lt;/span&gt;
+      &lt;select id=&quot;p_unit&quot;&gt;&lt;option value=&quot;ul&quot;&gt;por µL&lt;/option&gt;&lt;option value=&quot;hpf&quot;&gt;por campo de alto poder (hpf)&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;label class=&quot;opt&quot; style=&quot;margin-top:6px&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;p_exc&quot;&gt;&lt;span&gt;Uropatía obstructiva completa o neutropenia absoluta&lt;small&gt;La piuria puede estar ausente; se calcula el puntaje igualmente.&lt;/small&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;div class=&quot;sh&quot;&gt;&lt;h2&gt;Urocultivo&lt;/h2&gt;&lt;span class=&quot;chip&quot; id=&quot;chip_cul&quot;&gt;0 pts&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;f&quot;&gt;&lt;span class=&quot;l&quot;&gt;Estado&lt;/span&gt;
+    &lt;div class=&quot;seg&quot; role=&quot;radiogroup&quot; aria-label=&quot;Estado del urocultivo&quot;&gt;
+      &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;cstat&quot; value=&quot;none&quot; checked&gt;&lt;span&gt;No realizado&lt;/span&gt;&lt;/label&gt;
+      &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;cstat&quot; value=&quot;nogrowth&quot;&gt;&lt;span&gt;Sin desarrollo&lt;/span&gt;&lt;/label&gt;
+      &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;cstat&quot; value=&quot;growth&quot;&gt;&lt;span&gt;Con desarrollo&lt;/span&gt;&lt;/label&gt;
+    &lt;/div&gt;&lt;/div&gt;
+  &lt;div id=&quot;c_ng&quot; class=&quot;hide&quot;&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;c_pre&quot;&gt;Tratado previamente con antimicrobianos&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;c_gr&quot; class=&quot;hide&quot;&gt;
+    &lt;div class=&quot;f&quot; style=&quot;margin-top:12px&quot;&gt;&lt;span class=&quot;l&quot;&gt;Tipo de muestra&lt;/span&gt;
+      &lt;div class=&quot;seg&quot; role=&quot;radiogroup&quot; aria-label=&quot;Tipo de muestra&quot;&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;csample&quot; value=&quot;mid&quot; checked&gt;&lt;span&gt;Chorro medio&lt;/span&gt;&lt;/label&gt;
+        &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;csample&quot; value=&quot;cath&quot;&gt;&lt;span&gt;Sonda única (in-out)&lt;/span&gt;&lt;/label&gt;
+      &lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;grp&quot;&gt;Microorganismos aislados&lt;/div&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;org&quot; id=&quot;o_ecoli&quot;&gt;Escherichia coli&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;org&quot; id=&quot;o_ent&quot;&gt;Otras Enterobacterales (Klebsiella, Proteus, etc.)&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;org&quot; id=&quot;o_pse&quot;&gt;Pseudomonas aeruginosa&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;org&quot; id=&quot;o_sap&quot;&gt;Staphylococcus saprophyticus&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;org&quot; id=&quot;o_oth&quot;&gt;Otro patógeno (Enterococcus, S. agalactiae, S. aureus, etc.)&lt;/label&gt;
+    &lt;label class=&quot;opt&quot;&gt;&lt;input type=&quot;checkbox&quot; id=&quot;o_mix&quot;&gt;Flora mixta&lt;/label&gt;
+    &lt;label class=&quot;f&quot; style=&quot;margin-top:10px&quot;&gt;&lt;span class=&quot;l&quot;&gt;Recuento (UFC/mL)&lt;/span&gt;
+      &lt;select id=&quot;c_cfu&quot;&gt;
+        &lt;option value=&quot;2&quot;&gt;&amp;lt;10³&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;10³ a &amp;lt;10⁴&lt;/option&gt;
+        &lt;option value=&quot;4&quot; selected&gt;≥10⁴&lt;/option&gt;
+      &lt;/select&gt;&lt;/label&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;div class=&quot;sh&quot;&gt;&lt;h2&gt;Resultado&lt;/h2&gt;&lt;/div&gt;
+  &lt;div id=&quot;bd&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;sys&quot; id=&quot;sysbox&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;warns&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;margin-top:14px&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;copy&quot; id=&quot;copy&quot;&gt;Copiar resumen&lt;/button&gt; &lt;span class=&quot;hint&quot; id=&quot;copied&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+
+  &lt;details&gt;
+    &lt;summary&gt;Supuestos de implementación&lt;/summary&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Umbral de entrada: piuria ≥10 leucocitos/µL o ≥5/hpf. Sin síntomas ni signos nuevos (si el paciente puede expresarlos) o sin piuria suficiente, el flujo termina en &quot;No ITU&quot;.&lt;/li&gt;
+      &lt;li&gt;Mujer ≥65 años: +1 en síntomas con ≥2 mayores; −1 en piuria intermedia (10–200/µL o 5–50/hpf); −1 en urocultivo positivo. La ubicación de cada deducción sigue el esquema de la figura 1.&lt;/li&gt;
+      &lt;li&gt;Bacteriemia con el mismo patógeno: 3 pts en cultivo (+2 en sistémicos) y sin deducción por edad.&lt;/li&gt;
+      &lt;li&gt;Más de 2 uropatógenos típicos se trata como flora mixta (1 pt). Uropatógeno típico bajo el umbral: el artículo no define puntaje; aquí se asigna 0.&lt;/li&gt;
+      &lt;li&gt;Umbrales de cultivo: chorro medio ≥10⁴ UFC/mL (E. coli ≥10³); sonda única ≥10³. Enterococcus y S. agalactiae no son uropatógenos típicos (1 pt); si crecen junto a un típico, se puntúa el típico.&lt;/li&gt;
+      &lt;li&gt;Categorías: ≥8 definitiva · 5–7 probable · 3–4 posible · 0–2 no ITU.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/details&gt;
+  &lt;p class=&quot;foot&quot;&gt;Basado en Bilsen MP, et al. Lancet Infect Dis 2024. doi:10.1016/S1473-3099(23)00778-8. No incluye la versión suplementaria con tira reactiva (apéndice del artículo).&lt;/p&gt;
+&lt;/section&gt;
+&lt;/form&gt;
+&lt;/main&gt;
+
+&lt;div class=&quot;bar&quot; role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;
+  &lt;div class=&quot;bar-in&quot;&gt;
+    &lt;div class=&quot;bar-top&quot;&gt;&lt;div class=&quot;cat&quot; id=&quot;cat&quot;&gt;—&lt;/div&gt;&lt;div class=&quot;score&quot;&gt;&lt;span id=&quot;tot&quot;&gt;—&lt;/span&gt;&lt;small&gt;puntos&lt;/small&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;gauge&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;b class=&quot;mk off&quot; id=&quot;mk&quot;&gt;&lt;/b&gt;&lt;/div&gt;
+    &lt;div class=&quot;scale&quot;&gt;&lt;span&gt;0–2&lt;/span&gt;&lt;span&gt;3–4&lt;/span&gt;&lt;span&gt;5–7&lt;/span&gt;&lt;span&gt;≥8&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;sub2&quot; id=&quot;why&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const $ = id =&gt; document.getElementById(id);
+const chk = id =&gt; $(id).checked;
+const val = name =&gt; document.querySelector(&#x27;input[name=&quot;&#x27;+name+&#x27;&quot;]:checked&#x27;).value;
+const pts = n =&gt; n + (n === 1 ? &#x27; pt&#x27; : &#x27; pts&#x27;);
+
+function compute(){
+  const R = {pending:[], warns:[], rows:[]};
+  const sex = val(&#x27;sex&#x27;);
+  const age = parseFloat($(&#x27;age&#x27;).value);
+  if (sex === &#x27;F&#x27; &amp;&amp; isNaN(age)) R.pending.push(&#x27;edad&#x27;);
+  const old = sex === &#x27;F&#x27; &amp;&amp; age &gt;= 65;
+  const capable = val(&#x27;capable&#x27;) === &#x27;yes&#x27;;
+
+  // Síntomas y signos
+  const majors = [&#x27;s_dys&#x27;,&#x27;s_urg&#x27;,&#x27;s_freq&#x27;].filter(chk).length;
+  const minors = [&#x27;s_supra&#x27;,&#x27;s_flank&#x27;,&#x27;s_perin&#x27;,&#x27;s_incont&#x27;,&#x27;s_hemat&#x27;,&#x27;s_recog&#x27;].filter(chk).length;
+  let sym = 0, symTxt = &#x27;Sin síntomas nuevos&#x27;;
+  if (!capable){ sym = 1; symTxt = &#x27;No puede expresar síntomas&#x27;; }
+  else if (majors &gt;= 2){ sym = 3 + (old ? 1 : 0); symTxt = &#x27;≥2 síntomas mayores&#x27; + (old ? &#x27; (+1 mujer ≥65)&#x27; : &#x27;&#x27;); }
+  else if (majors === 1 || minors &gt;= 2){ sym = 2; symTxt = majors === 1 ? &#x27;1 síntoma mayor&#x27; : &#x27;2 o más síntomas menores&#x27;; }
+  else if (minors === 1){ sym = 1; symTxt = &#x27;1 síntoma menor&#x27;; }
+  R.sym = sym;
+  R.rows.push([&#x27;Síntomas y signos&#x27;, symTxt, sym]);
+
+  // Sistémicos
+  const sysAny = [&#x27;y_fever&#x27;,&#x27;y_crp&#x27;,&#x27;y_pct&#x27;,&#x27;y_wbc&#x27;,&#x27;y_bact&#x27;].some(chk);
+  const sys = sysAny ? 2 : 0;
+  R.sys = sys;
+  R.rows.push([&#x27;Criterios sistémicos&#x27;, sysAny ? &#x27;≥1 criterio nuevo&#x27; : &#x27;Ninguno&#x27;, sys]);
+
+  // Piuria
+  const pv = parseFloat($(&#x27;p_val&#x27;).value), unit = $(&#x27;p_unit&#x27;).value;
+  const lo = unit === &#x27;ul&#x27; ? 10 : 5, hi = unit === &#x27;ul&#x27; ? 200 : 50;
+  const exc = chk(&#x27;p_exc&#x27;);
+  let pyu = 0, pyuTxt = &#x27;&#x27;, entryMet = false, pyuPending = false;
+  if (isNaN(pv)){ pyuPending = true; pyuTxt = &#x27;Sin dato&#x27;; }
+  else if (pv &gt;= hi){ pyu = 3; entryMet = true; pyuTxt = &#x27;Piuria alta (≥&#x27; + hi + (unit===&#x27;ul&#x27;?&#x27;/µL&#x27;:&#x27;/hpf&#x27;) + &#x27;)&#x27;; }
+  else if (pv &gt;= lo){ pyu = 2 - (old ? 1 : 0); entryMet = true; pyuTxt = &#x27;Piuria intermedia&#x27; + (old ? &#x27; (−1 mujer ≥65)&#x27; : &#x27;&#x27;); }
+  else { pyuTxt = &#x27;Bajo el umbral de entrada&#x27;; }
+  R.pyu = pyu;
+  R.rows.push([&#x27;Piuria&#x27;, pyuTxt, pyuPending ? null : pyu]);
+
+  // Urocultivo
+  const bact = chk(&#x27;y_bact&#x27;);
+  const cstat = val(&#x27;cstat&#x27;);
+  let cul = 0, culTxt = &#x27;No realizado&#x27;, culPending = false;
+  if (bact){ cul = 3; culTxt = &#x27;Bacteriemia con mismo patógeno&#x27;; }
+  else if (cstat === &#x27;none&#x27;){ cul = 0; culTxt = &#x27;No realizado&#x27;; }
+  else if (cstat === &#x27;nogrowth&#x27;){ cul = chk(&#x27;c_pre&#x27;) ? 1 : 0; culTxt = chk(&#x27;c_pre&#x27;) ? &#x27;Sin desarrollo, con tratamiento previo&#x27; : &#x27;Sin desarrollo, sin tratamiento previo&#x27;; }
+  else {
+    const typ = [&#x27;o_ecoli&#x27;,&#x27;o_ent&#x27;,&#x27;o_pse&#x27;,&#x27;o_sap&#x27;].filter(chk).length;
+    const oth = chk(&#x27;o_oth&#x27;), mix = chk(&#x27;o_mix&#x27;);
+    const cfu = parseInt($(&#x27;c_cfu&#x27;).value, 10);
+    const cath = val(&#x27;csample&#x27;) === &#x27;cath&#x27;;
+    if (mix){ cul = 1; culTxt = &#x27;Flora mixta&#x27;; }
+    else if (typ &gt; 2){ cul = 1; culTxt = &#x27;&gt;2 uropatógenos (tratado como flora mixta)&#x27;; R.warns.push(&#x27;Más de 2 uropatógenos típicos: se asignó 1 pt como flora mixta (supuesto, no explícito en el artículo).&#x27;); }
+    else if (typ &gt;= 1){
+      const thr = cath ? 3 : (chk(&#x27;o_ecoli&#x27;) ? 3 : 4);
+      if (cfu &gt;= thr){ cul = 3 - (old ? 1 : 0); culTxt = &#x27;Uropatógeno ≥10&#x27; + (thr===3?&#x27;³&#x27;:&#x27;⁴&#x27;) + &#x27; UFC/mL&#x27; + (old ? &#x27; (−1 mujer ≥65)&#x27; : &#x27;&#x27;); }
+      else { cul = 0; culTxt = &#x27;Uropatógeno bajo el umbral&#x27;; R.warns.push(&#x27;Uropatógeno típico bajo el umbral de recuento: el artículo no asigna puntaje a este caso; se asignó 0.&#x27;); }
+    }
+    else if (oth){ cul = 1; culTxt = &#x27;Otro patógeno&#x27;; }
+    else { culPending = true; culTxt = &#x27;Selecciona el microorganismo&#x27;; R.pending.push(&#x27;microorganismo&#x27;); }
+  }
+  R.cul = cul;
+  R.rows.push([&#x27;Urocultivo&#x27;, culTxt, culPending ? null : cul]);
+
+  // Entrada del flujo
+  const anyNew = (majors + minors &gt; 0) || sysAny || chk(&#x27;y_sbp&#x27;);
+  R.gate = null;
+  if (capable &amp;&amp; !anyNew) R.gate = &#x27;Sin síntomas ni signos nuevos&#x27;;
+  else if (pyuPending &amp;&amp; !exc) R.pending.push(&#x27;piuria&#x27;);
+  else if (!entryMet &amp;&amp; !exc &amp;&amp; !pyuPending) R.gate = &#x27;Piuria bajo el umbral de entrada&#x27;;
+
+  R.total = sym + sys + pyu + cul;
+  if (R.gate) R.cat = &#x27;No ITU&#x27;;
+  else if (R.pending.length) R.cat = null;
+  else if (R.total &gt;= 8) R.cat = &#x27;ITU definitiva&#x27;;
+  else if (R.total &gt;= 5) R.cat = &#x27;ITU probable&#x27;;
+  else if (R.total &gt;= 3) R.cat = &#x27;ITU posible&#x27;;
+  else R.cat = &#x27;No ITU&#x27;;
+
+  R.sysInv = [
+    chk(&#x27;y_fever&#x27;) &amp;&amp; &#x27;fiebre&#x27;, chk(&#x27;s_flank&#x27;) &amp;&amp; &#x27;dolor en flanco / ángulo costovertebral&#x27;,
+    chk(&#x27;y_sbp&#x27;) &amp;&amp; &#x27;PAS &lt;90 mm Hg&#x27;, (chk(&#x27;y_crp&#x27;)||chk(&#x27;y_pct&#x27;)||chk(&#x27;y_wbc&#x27;)) &amp;&amp; &#x27;marcadores inflamatorios elevados&#x27;,
+    chk(&#x27;y_bact&#x27;) &amp;&amp; &#x27;bacteriemia&#x27;, chk(&#x27;y_abs&#x27;) &amp;&amp; &#x27;absceso renal&#x27;, chk(&#x27;y_pyo&#x27;) &amp;&amp; &#x27;pionefrosis&#x27;
+  ].filter(Boolean);
+  R.exc = exc; R.old = old;
+  return R;
+}
+
+function colorFor(cat){
+  return {&#x27;ITU definitiva&#x27;:&#x27;var(--c-def)&#x27;,&#x27;ITU probable&#x27;:&#x27;var(--c-pro)&#x27;,&#x27;ITU posible&#x27;:&#x27;var(--c-pos)&#x27;,&#x27;No ITU&#x27;:&#x27;var(--c-no)&#x27;}[cat] || &#x27;var(--muted)&#x27;;
+}
+
+function render(){
+  // visibilidad
+  const capable = val(&#x27;capable&#x27;) === &#x27;yes&#x27;;
+  $(&#x27;symbox&#x27;).classList.toggle(&#x27;dim&#x27;, !capable);
+  $(&#x27;symnote&#x27;).classList.toggle(&#x27;hide&#x27;, capable);
+  const cs = val(&#x27;cstat&#x27;);
+  $(&#x27;c_ng&#x27;).classList.toggle(&#x27;hide&#x27;, cs !== &#x27;nogrowth&#x27;);
+  $(&#x27;c_gr&#x27;).classList.toggle(&#x27;hide&#x27;, cs !== &#x27;growth&#x27;);
+
+  const R = compute();
+  $(&#x27;chip_sym&#x27;).textContent = pts(R.sym);
+  $(&#x27;chip_sys&#x27;).textContent = pts(R.sys);
+  $(&#x27;chip_pyu&#x27;).textContent = R.rows[2][2] === null ? &#x27;— pts&#x27; : pts(R.pyu);
+  $(&#x27;chip_cul&#x27;).textContent = R.rows[3][2] === null ? &#x27;— pts&#x27; : pts(R.cul);
+
+  // barra fija
+  const cat = $(&#x27;cat&#x27;), tot = $(&#x27;tot&#x27;), mk = $(&#x27;mk&#x27;), why = $(&#x27;why&#x27;);
+  if (R.gate){
+    cat.textContent = &#x27;No ITU&#x27;; cat.style.color = colorFor(&#x27;No ITU&#x27;);
+    tot.textContent = &#x27;—&#x27;; mk.classList.add(&#x27;off&#x27;);
+    why.textContent = &#x27;El flujo termina aquí: &#x27; + R.gate.toLowerCase() + &#x27;.&#x27;;
+  } else if (R.pending.length){
+    cat.textContent = &#x27;Faltan datos&#x27;; cat.style.color = &#x27;var(--muted)&#x27;;
+    tot.textContent = &#x27;—&#x27;; mk.classList.add(&#x27;off&#x27;);
+    why.textContent = &#x27;Completa: &#x27; + R.pending.join(&#x27;, &#x27;) + &#x27;.&#x27;;
+  } else {
+    cat.textContent = R.cat; cat.style.color = colorFor(R.cat);
+    tot.textContent = R.total;
+    mk.classList.remove(&#x27;off&#x27;);
+    mk.style.left = ((Math.min(R.total, 11) + 0.5) / 12 * 100) + &#x27;%&#x27;;
+    why.textContent = &#x27;&#x27;;
+  }
+
+  // tabla
+  let h = &#x27;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Dominio&lt;/th&gt;&lt;th&gt;Criterio&lt;/th&gt;&lt;th style=&quot;text-align:right&quot;&gt;Pts&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&#x27;;
+  R.rows.forEach(r =&gt; { h += &#x27;&lt;tr&gt;&lt;td&gt;&#x27; + r[0] + &#x27;&lt;/td&gt;&lt;td&gt;&#x27; + r[1] + &#x27;&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;&#x27; + (r[2] === null ? &#x27;—&#x27; : r[2]) + &#x27;&lt;/td&gt;&lt;/tr&gt;&#x27;; });
+  h += &#x27;&lt;/tbody&gt;&lt;tfoot&gt;&lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;Total&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;&#x27; + ((R.pending.length || R.gate) ? &#x27;—&#x27; : R.total) + &#x27;&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;&lt;/table&gt;&#x27;;
+  $(&#x27;bd&#x27;).innerHTML = h;
+
+  // compromiso sistémico
+  const sb = $(&#x27;sysbox&#x27;);
+  if (R.gate || R.pending.length || R.cat === &#x27;No ITU&#x27;){ sb.classList.add(&#x27;hide&#x27;); }
+  else {
+    sb.classList.remove(&#x27;hide&#x27;);
+    sb.textContent = R.sysInv.length
+      ? &#x27;ITU con compromiso sistémico (&#x27; + R.sysInv.join(&#x27;; &#x27;) + &#x27;).&#x27;
+      : &#x27;ITU sin compromiso sistémico.&#x27;;
+  }
+
+  // avisos
+  let w = &#x27;&#x27;;
+  R.warns.forEach(x =&gt; w += &#x27;&lt;div class=&quot;note&quot;&gt;&#x27; + x + &#x27;&lt;/div&gt;&#x27;);
+  if (R.exc) w += &#x27;&lt;div class=&quot;note&quot;&gt;Excepción activa: se omite la piuria como criterio de entrada.&lt;/div&gt;&#x27;;
+  if (R.old &amp;&amp; !R.gate &amp;&amp; R.cat === &#x27;ITU posible&#x27;) w += &#x27;&#x27;;
+  $(&#x27;warns&#x27;).innerHTML = w;
+
+  window.__R = R;
+}
+
+function summary(){
+  const R = window.__R;
+  let t = &#x27;Puntaje ITU (Bilsen 2024)\n&#x27;;
+  R.rows.forEach(r =&gt; t += r[0] + &#x27;: &#x27; + (r[2] === null ? &#x27;—&#x27; : r[2]) + &#x27; (&#x27; + r[1] + &#x27;)\n&#x27;);
+  if (R.gate) t += &#x27;Resultado: No ITU (&#x27; + R.gate + &#x27;)&#x27;;
+  else if (R.pending.length) t += &#x27;Incompleto: falta &#x27; + R.pending.join(&#x27;, &#x27;);
+  else {
+    t += &#x27;Total: &#x27; + R.total + &#x27; → &#x27; + R.cat;
+    if (R.cat !== &#x27;No ITU&#x27;) t += R.sysInv.length ? &#x27; con compromiso sistémico&#x27; : &#x27; sin compromiso sistémico&#x27;;
+  }
+  return t;
+}
+
+// exclusividad flora mixta vs organismos
+document.querySelectorAll(&#x27;.org&#x27;).forEach(el =&gt; el.addEventListener(&#x27;change&#x27;, () =&gt; { if (el.checked) $(&#x27;o_mix&#x27;).checked = false; }));
+$(&#x27;o_mix&#x27;).addEventListener(&#x27;change&#x27;, () =&gt; { if ($(&#x27;o_mix&#x27;).checked) document.querySelectorAll(&#x27;.org&#x27;).forEach(e =&gt; e.checked = false); });
+
+$(&#x27;f&#x27;).addEventListener(&#x27;input&#x27;, render);
+$(&#x27;f&#x27;).addEventListener(&#x27;change&#x27;, render);
+
+$(&#x27;copy&#x27;).addEventListener(&#x27;click&#x27;, async () =&gt; {
+  const t = summary();
+  let ok = false;
+  try { await navigator.clipboard.writeText(t); ok = true; } catch(e) {}
+  if (!ok){
+    try {
+      const ta = document.createElement(&#x27;textarea&#x27;); ta.value = t; document.body.appendChild(ta);
+      ta.select(); ok = document.execCommand(&#x27;copy&#x27;); document.body.removeChild(ta);
+    } catch(e) {}
+  }
+  $(&#x27;copied&#x27;).textContent = ok ? &#x27;Copiado&#x27; : &#x27;No se pudo copiar&#x27;;
+  setTimeout(() =&gt; $(&#x27;copied&#x27;).textContent = &#x27;&#x27;, 2500);
+});
+
+render();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe><iframe id="p3" title="Espermático OMS" sandbox="allow-scripts allow-same-origin allow-modals allow-downloads" hidden srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Calculadora OMS — Análisis Espermático&lt;/title&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;style&gt;
+  :root {
+    --bg: #f4f7fb;
+    --surface: #ffffff;
+    --surface2: #eef2f8;
+    --border: #d4dce9;
+    --accent: #0070c0;
+    --accent2: #0aab6e;
+    --warn: #d95f1a;
+    --reject: #d92d4b;
+    --accept: #0aab6e;
+    --text: #1a2540;
+    --muted: #6b7fa3;
+    --mono: &#x27;Space Mono&#x27;, monospace;
+    --sans: &#x27;DM Sans&#x27;, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 24px 16px 48px;
+    background-image:
+      radial-gradient(ellipse 600px 400px at 80% -10%, rgba(0,112,192,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 300px at -10% 80%, rgba(10,171,110,0.05) 0%, transparent 70%);
+  }
+
+  .container { max-width: 700px; margin: 0 auto; }
+
+  header { margin-bottom: 28px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+
+  .tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; }
+  h1 { font-family: var(--mono); font-size: clamp(16px,4vw,24px); font-weight: 700; color: var(--text); line-height: 1.2; }
+  h1 span { color: var(--accent); }
+  .subtitle { font-size: 13px; color: var(--muted); margin-top: 6px; font-weight: 300; }
+
+  /* TABS */
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+  .tab-btn { background: var(--surface); border: 2px solid var(--border); border-radius: 10px; color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 600; padding: 12px 16px; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .tab-btn.active { background: rgba(0,112,192,0.08); border-color: var(--accent); color: var(--accent); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
+
+  /* CARD */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+  .card-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .card-title::before { content: &#x27;&#x27;; width: 3px; height: 13px; background: var(--accent); border-radius: 2px; display: inline-block; }
+
+  /* FORM */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  label { font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: 0.03em; }
+  select, input[type=&quot;number&quot;] { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: var(--mono); font-size: 14px; padding: 9px 12px; width: 100%; outline: none; transition: border-color 0.2s, box-shadow 0.2s; -webkit-appearance: none; }
+  select:focus, input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,112,192,0.1); }
+  .toggle-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .toggle-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--muted); font-family: var(--sans); font-size: 12px; font-weight: 500; padding: 9px 10px; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .toggle-btn.active { background: rgba(0,112,192,0.1); border-color: var(--accent); color: var(--accent); }
+  .counts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+  .count-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 5px; }
+
+  /* MOTILITY INPUTS */
+  .mot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+  .mot-field { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+  .mot-field-label { font-size: 11px; font-weight: 600; margin-bottom: 3px; }
+  .mot-field-sub { font-size: 10px; color: var(--muted); margin-bottom: 6px; }
+  .mot-field input { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: var(--mono); font-size: 14px; padding: 6px 10px; width: 100%; outline: none; }
+  .mot-field input:focus { border-color: var(--accent); }
+  .cat-pr { border-left: 3px solid #0070c0; }
+  .cat-ps { border-left: 3px solid #00a8cc; }
+  .cat-np { border-left: 3px solid #f59e0b; }
+  .cat-im { border-left: 3px solid #94a3b8; }
+
+  /* BUTTONS */
+  .btn-calc { width: 100%; background: linear-gradient(135deg,rgba(0,112,192,0.12),rgba(10,171,110,0.08)); border: 1px solid var(--accent); border-radius: 10px; color: var(--accent); font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; padding: 13px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; margin-top: 4px; }
+  .btn-calc:hover { background: linear-gradient(135deg,rgba(0,112,192,0.2),rgba(10,171,110,0.15)); box-shadow: 0 0 16px rgba(0,112,192,0.15); }
+  .btn-reset { width: 100%; background: transparent; border: 1px solid var(--border); border-radius: 10px; color: var(--muted); font-family: var(--mono); font-size: 11px; padding: 9px; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+  .btn-reset:hover { border-color: var(--muted); color: var(--text); }
+
+  /* RESULTS */
+  .results-section { display: none; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  .verdict { border-radius: 12px; padding: 18px 22px; margin-bottom: 14px; border: 1px solid; display: flex; align-items: center; gap: 14px; }
+  .verdict.accept { background: rgba(10,171,110,0.08); border-color: rgba(10,171,110,0.35); }
+  .verdict.reject { background: rgba(217,45,75,0.07); border-color: rgba(217,45,75,0.3); }
+  .verdict-icon { font-size: 28px; line-height: 1; }
+  .verdict-title { font-family: var(--mono); font-size: 16px; font-weight: 700; }
+  .verdict.accept .verdict-title { color: var(--accept); }
+  .verdict.reject .verdict-title { color: var(--reject); }
+  .verdict-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  /* METRICS */
+  .metrics { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 14px; }
+  .metric { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .metric-label { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; }
+  .metric-value { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--text); line-height: 1; }
+  .metric-unit { font-size: 10px; color: var(--muted); margin-top: 3px; }
+  .metric.highlight .metric-value { color: var(--accent); }
+  .metric.highlight2 .metric-value { color: var(--accent2); }
+
+  /* MOTILITY BAR */
+  .mot-bar-wrap { margin-bottom: 14px; }
+  .mot-bar-title { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+  .mot-bar { display: flex; height: 28px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .mot-seg { display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; font-weight: 700; color: white; transition: width 0.4s ease; overflow: hidden; white-space: nowrap; }
+  .mot-seg.pr { background: #0070c0; }
+  .mot-seg.ps { background: #00a8cc; }
+  .mot-seg.np { background: #f59e0b; }
+  .mot-seg.im { background: #94a3b8; color: #1a2540; }
+  .mot-legend { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; margin-top: 8px; }
+  .mot-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text); }
+  .mot-legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  /* DETAIL TABLE */
+  .detail-table { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-row .dk { color: var(--muted); }
+  .detail-row .dv { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--text); }
+  .diff-ok { color: var(--accept) !important; }
+  .diff-bad { color: var(--reject) !important; }
+
+  /* NOTE */
+  .who-note { background: rgba(0,112,192,0.05); border: 1px solid rgba(0,112,192,0.18); border-radius: 8px; padding: 11px 13px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .who-note strong { color: var(--accent); }
+
+  /* ERROR */
+  .error-msg { background: rgba(217,95,26,0.1); border: 1px solid rgba(217,95,26,0.3); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--warn); display: none; margin-top: 8px; }
+
+  .oms-ref { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 11px; color: var(--muted); margin-bottom: 14px; line-height: 1.7; }
+  .oms-ref strong { color: var(--text); }
+
+  @media (max-width: 480px) {
+    .grid-2,.metrics,.mot-grid { grid-template-columns: 1fr; }
+    .mot-legend { grid-template-columns: repeat(2,1fr); }
+    .counts-row { grid-template-columns: 1fr 1fr; }
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;container&quot;&gt;
+
+  &lt;header&gt;
+    &lt;span class=&quot;tag&quot;&gt;OMS 6ª edición · Hemocitómetro Neubauer mejorado&lt;/span&gt;
+    &lt;h1&gt;Calculadora &lt;span&gt;Análisis Espermático&lt;/span&gt;&lt;/h1&gt;
+    &lt;p class=&quot;subtitle&quot;&gt;Concentración · Motilidad · Validación de réplicas · Número total&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;div class=&quot;tabs&quot;&gt;
+    &lt;button class=&quot;tab-btn active&quot; onclick=&quot;switchTab(&#x27;conc&#x27;)&quot;&gt;🔬 Concentración&lt;/button&gt;
+    &lt;button class=&quot;tab-btn&quot; onclick=&quot;switchTab(&#x27;mot&#x27;)&quot;&gt;🏃 Motilidad&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ══ TAB CONCENTRACIÓN ══ --&gt;
+  &lt;div class=&quot;tab-panel active&quot; id=&quot;tab-conc&quot;&gt;
+    &lt;div class=&quot;card&quot;&gt;
+      &lt;div class=&quot;card-title&quot;&gt;Parámetros del recuento&lt;/div&gt;
+      &lt;div class=&quot;grid-2&quot;&gt;
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label&gt;Dilución&lt;/label&gt;
+          &lt;select id=&quot;dilution&quot;&gt;
+            &lt;option value=&quot;2&quot;&gt;1 : 2&lt;/option&gt;
+            &lt;option value=&quot;5&quot;&gt;1 : 5&lt;/option&gt;
+            &lt;option value=&quot;10&quot; selected&gt;1 : 10&lt;/option&gt;
+            &lt;option value=&quot;20&quot;&gt;1 : 20&lt;/option&gt;
+            &lt;option value=&quot;50&quot;&gt;1 : 50&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label&gt;Tipo de área&lt;/label&gt;
+          &lt;div class=&quot;toggle-group&quot;&gt;
+            &lt;button class=&quot;toggle-btn active&quot; id=&quot;btn-squares&quot; onclick=&quot;setAreaType(&#x27;squares&#x27;)&quot;&gt;Cuadrados&lt;br&gt;&lt;small style=&quot;font-size:10px;opacity:0.7&quot;&gt;central&lt;/small&gt;&lt;/button&gt;
+            &lt;button class=&quot;toggle-btn&quot; id=&quot;btn-grids&quot; onclick=&quot;setAreaType(&#x27;grids&#x27;)&quot;&gt;Cuadrículas&lt;br&gt;&lt;small style=&quot;font-size:10px;opacity:0.7&quot;&gt;periféricas&lt;/small&gt;&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot; id=&quot;squares-field&quot;&gt;
+          &lt;label&gt;Cuadrados grandes por cámara&lt;/label&gt;
+          &lt;select id=&quot;area-count&quot;&gt;
+            &lt;option value=&quot;5&quot;&gt;5 cuadrados&lt;/option&gt;
+            &lt;option value=&quot;10&quot;&gt;10 cuadrados&lt;/option&gt;
+            &lt;option value=&quot;25&quot;&gt;25 cuadrados (completa)&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot; id=&quot;grids-field&quot; style=&quot;display:none;&quot;&gt;
+          &lt;label&gt;Cuadrículas periféricas por cámara&lt;/label&gt;
+          &lt;select id=&quot;grid-count&quot;&gt;
+            &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;
+            &lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;option value=&quot;7&quot;&gt;7&lt;/option&gt;
+            &lt;option value=&quot;8&quot;&gt;8&lt;/option&gt;&lt;option value=&quot;9&quot;&gt;9 (todas)&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div style=&quot;margin-top:14px;&quot;&gt;
+        &lt;label&gt;Espermatozoides contados por réplica&lt;/label&gt;
+        &lt;div class=&quot;counts-row&quot;&gt;
+          &lt;div&gt;&lt;div class=&quot;count-label&quot;&gt;RÉPLICA 1&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;count1&quot; placeholder=&quot;ej. 210&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;div class=&quot;count-label&quot;&gt;RÉPLICA 2&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;count2&quot; placeholder=&quot;ej. 215&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div style=&quot;margin-top:14px;&quot;&gt;
+        &lt;label&gt;Volumen del eyaculado &lt;span style=&quot;font-weight:300;&quot;&gt;(opcional — para número total)&lt;/span&gt;&lt;/label&gt;
+        &lt;div style=&quot;display:flex;align-items:center;gap:10px;margin-top:4px;&quot;&gt;
+          &lt;input type=&quot;number&quot; id=&quot;volume&quot; placeholder=&quot;ej. 3.5&quot; step=&quot;0.1&quot; min=&quot;0&quot; style=&quot;flex:1;&quot;&gt;
+          &lt;span style=&quot;font-family:var(--mono);font-size:12px;color:var(--muted);&quot;&gt;ml&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;error-msg&quot; id=&quot;conc-error&quot;&gt;&lt;/div&gt;
+      &lt;button class=&quot;btn-calc&quot; onclick=&quot;calcConc()&quot;&gt;▶ CALCULAR CONCENTRACIÓN&lt;/button&gt;
+      &lt;button class=&quot;btn-reset&quot; onclick=&quot;resetConc()&quot;&gt;↺ Reiniciar&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;results-section&quot; id=&quot;conc-results&quot;&gt;
+      &lt;div class=&quot;verdict&quot; id=&quot;conc-verdict&quot;&gt;
+        &lt;div class=&quot;verdict-icon&quot; id=&quot;conc-vicon&quot;&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;div class=&quot;verdict-title&quot; id=&quot;conc-vtitle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;verdict-sub&quot; id=&quot;conc-vsub&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;metrics&quot;&gt;
+        &lt;div class=&quot;metric highlight&quot;&gt;&lt;div class=&quot;metric-label&quot;&gt;Concentración&lt;/div&gt;&lt;div class=&quot;metric-value&quot; id=&quot;r-conc&quot;&gt;—&lt;/div&gt;&lt;div class=&quot;metric-unit&quot;&gt;× 10⁶ esp/ml&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;&lt;div class=&quot;metric-label&quot;&gt;Incertidumbre&lt;/div&gt;&lt;div class=&quot;metric-value&quot; id=&quot;r-error&quot;&gt;—&lt;/div&gt;&lt;div class=&quot;metric-unit&quot;&gt;error estimado&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;metric highlight2&quot; id=&quot;metric-total&quot; style=&quot;display:none;&quot;&gt;&lt;div class=&quot;metric-label&quot;&gt;Total por eyaculado&lt;/div&gt;&lt;div class=&quot;metric-value&quot; id=&quot;r-total&quot;&gt;—&lt;/div&gt;&lt;div class=&quot;metric-unit&quot;&gt;× 10⁶ espermatozoides&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;&lt;div class=&quot;metric-label&quot;&gt;Factor corrección&lt;/div&gt;&lt;div class=&quot;metric-value&quot; id=&quot;r-factor&quot;&gt;—&lt;/div&gt;&lt;div class=&quot;metric-unit&quot;&gt;Tabla 2.4 OMS&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;detail-table&quot;&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Dilución&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;d-dil&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Área contada&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;d-area&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Réplica 1&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;d-r1&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Réplica 2&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;d-r2&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Suma&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;d-sum&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Diferencia&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;d-diff&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Límite aceptable (Tabla 2.3)&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;d-lim&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;who-note&quot; id=&quot;conc-note&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ══ TAB MOTILIDAD ══ --&gt;
+  &lt;div class=&quot;tab-panel&quot; id=&quot;tab-mot&quot;&gt;
+    &lt;div class=&quot;oms-ref&quot;&gt;
+      &lt;strong&gt;Categorías OMS 6ª ed.:&lt;/strong&gt; PR rápido ≥25 µm/s · PR lento 5–24 µm/s · No progresivo &amp;lt;5 µm/s · Inmóvil.&lt;br&gt;
+      Ingresar número de espermatozoides (no %) de cada categoría. Mínimo 200 por réplica. Cada réplica = preparación húmeda nueva.
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card&quot;&gt;
+      &lt;div class=&quot;card-title&quot;&gt;Réplica 1 — Primera preparación húmeda&lt;/div&gt;
+      &lt;div class=&quot;mot-grid&quot;&gt;
+        &lt;div class=&quot;mot-field cat-pr&quot;&gt;&lt;div class=&quot;mot-field-label&quot; style=&quot;color:#0070c0;&quot;&gt;Progresivo Rápido&lt;/div&gt;&lt;div class=&quot;mot-field-sub&quot;&gt;≥ 25 µm/s&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;m1-pr&quot; placeholder=&quot;0&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;mot-field cat-ps&quot;&gt;&lt;div class=&quot;mot-field-label&quot; style=&quot;color:#00a8cc;&quot;&gt;Progresivo Lento&lt;/div&gt;&lt;div class=&quot;mot-field-sub&quot;&gt;5–24 µm/s&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;m1-ps&quot; placeholder=&quot;0&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;mot-field cat-np&quot;&gt;&lt;div class=&quot;mot-field-label&quot; style=&quot;color:#d97706;&quot;&gt;No Progresivo&lt;/div&gt;&lt;div class=&quot;mot-field-sub&quot;&gt;&amp;lt; 5 µm/s&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;m1-np&quot; placeholder=&quot;0&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;mot-field cat-im&quot;&gt;&lt;div class=&quot;mot-field-label&quot; style=&quot;color:#64748b;&quot;&gt;Inmóvil&lt;/div&gt;&lt;div class=&quot;mot-field-sub&quot;&gt;Sin movimiento&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;m1-im&quot; placeholder=&quot;0&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div style=&quot;margin-top:10px;font-size:12px;color:var(--muted);&quot;&gt;Total réplica 1: &lt;strong id=&quot;mot-total1&quot; style=&quot;color:var(--text);&quot;&gt;0&lt;/strong&gt; espermatozoides&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card&quot;&gt;
+      &lt;div class=&quot;card-title&quot;&gt;Réplica 2 — Segunda preparación húmeda&lt;/div&gt;
+      &lt;div class=&quot;mot-grid&quot;&gt;
+        &lt;div class=&quot;mot-field cat-pr&quot;&gt;&lt;div class=&quot;mot-field-label&quot; style=&quot;color:#0070c0;&quot;&gt;Progresivo Rápido&lt;/div&gt;&lt;div class=&quot;mot-field-sub&quot;&gt;≥ 25 µm/s&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;m2-pr&quot; placeholder=&quot;0&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;mot-field cat-ps&quot;&gt;&lt;div class=&quot;mot-field-label&quot; style=&quot;color:#00a8cc;&quot;&gt;Progresivo Lento&lt;/div&gt;&lt;div class=&quot;mot-field-sub&quot;&gt;5–24 µm/s&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;m2-ps&quot; placeholder=&quot;0&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;mot-field cat-np&quot;&gt;&lt;div class=&quot;mot-field-label&quot; style=&quot;color:#d97706;&quot;&gt;No Progresivo&lt;/div&gt;&lt;div class=&quot;mot-field-sub&quot;&gt;&amp;lt; 5 µm/s&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;m2-np&quot; placeholder=&quot;0&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;mot-field cat-im&quot;&gt;&lt;div class=&quot;mot-field-label&quot; style=&quot;color:#64748b;&quot;&gt;Inmóvil&lt;/div&gt;&lt;div class=&quot;mot-field-sub&quot;&gt;Sin movimiento&lt;/div&gt;&lt;input type=&quot;number&quot; id=&quot;m2-im&quot; placeholder=&quot;0&quot; min=&quot;0&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div style=&quot;margin-top:10px;font-size:12px;color:var(--muted);&quot;&gt;Total réplica 2: &lt;strong id=&quot;mot-total2&quot; style=&quot;color:var(--text);&quot;&gt;0&lt;/strong&gt; espermatozoides&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;error-msg&quot; id=&quot;mot-error&quot;&gt;&lt;/div&gt;
+    &lt;button class=&quot;btn-calc&quot; onclick=&quot;calcMot()&quot;&gt;▶ CALCULAR MOTILIDAD&lt;/button&gt;
+    &lt;button class=&quot;btn-reset&quot; onclick=&quot;resetMot()&quot;&gt;↺ Reiniciar&lt;/button&gt;
+
+    &lt;div class=&quot;results-section&quot; id=&quot;mot-results&quot;&gt;
+      &lt;div class=&quot;verdict&quot; id=&quot;mot-verdict&quot;&gt;
+        &lt;div class=&quot;verdict-icon&quot; id=&quot;mot-vicon&quot;&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;div class=&quot;verdict-title&quot; id=&quot;mot-vtitle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;verdict-sub&quot; id=&quot;mot-vsub&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;mot-bar-wrap&quot;&gt;
+        &lt;div class=&quot;mot-bar-title&quot;&gt;Distribución de motilidad (% promedio)&lt;/div&gt;
+        &lt;div class=&quot;mot-bar&quot;&gt;
+          &lt;div class=&quot;mot-seg pr&quot; id=&quot;bar-pr&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;mot-seg ps&quot; id=&quot;bar-ps&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;mot-seg np&quot; id=&quot;bar-np&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;mot-seg im&quot; id=&quot;bar-im&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;mot-legend&quot;&gt;
+          &lt;div class=&quot;mot-legend-item&quot;&gt;&lt;div class=&quot;mot-legend-dot&quot; style=&quot;background:#0070c0;&quot;&gt;&lt;/div&gt;&lt;span id=&quot;leg-pr&quot;&gt;PR rápido&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;mot-legend-item&quot;&gt;&lt;div class=&quot;mot-legend-dot&quot; style=&quot;background:#00a8cc;&quot;&gt;&lt;/div&gt;&lt;span id=&quot;leg-ps&quot;&gt;PR lento&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;mot-legend-item&quot;&gt;&lt;div class=&quot;mot-legend-dot&quot; style=&quot;background:#f59e0b;&quot;&gt;&lt;/div&gt;&lt;span id=&quot;leg-np&quot;&gt;No prog.&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;mot-legend-item&quot;&gt;&lt;div class=&quot;mot-legend-dot&quot; style=&quot;background:#94a3b8;&quot;&gt;&lt;/div&gt;&lt;span id=&quot;leg-im&quot;&gt;Inmóvil&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;metrics&quot;&gt;
+        &lt;div class=&quot;metric highlight&quot;&gt;&lt;div class=&quot;metric-label&quot;&gt;Motilidad progresiva&lt;/div&gt;&lt;div class=&quot;metric-value&quot; id=&quot;r-prog&quot;&gt;—&lt;/div&gt;&lt;div class=&quot;metric-unit&quot;&gt;PR rápido + lento · ref OMS ≥ 32%&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;&lt;div class=&quot;metric-label&quot;&gt;Motilidad total&lt;/div&gt;&lt;div class=&quot;metric-value&quot; id=&quot;r-mot-total&quot;&gt;—&lt;/div&gt;&lt;div class=&quot;metric-unit&quot;&gt;PR + NP · ref OMS ≥ 40%&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;&lt;div class=&quot;metric-label&quot;&gt;Inmóviles&lt;/div&gt;&lt;div class=&quot;metric-value&quot; id=&quot;r-imm&quot;&gt;—&lt;/div&gt;&lt;div class=&quot;metric-unit&quot;&gt;% del total&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;&lt;div class=&quot;metric-label&quot;&gt;Diferencia / Límite&lt;/div&gt;&lt;div class=&quot;metric-value&quot; id=&quot;r-mot-diff&quot;&gt;—&lt;/div&gt;&lt;div class=&quot;metric-unit&quot;&gt;grupo dominante (Tabla 2.2)&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;detail-table&quot;&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;PR rápido promedio&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;dm-pr&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;PR lento promedio&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;dm-ps&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;No progresivo promedio&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;dm-np&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Inmóvil promedio&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;dm-im&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Grupo dominante&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;dm-dom&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Diferencia réplicas&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;dm-diff&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;detail-row&quot;&gt;&lt;span class=&quot;dk&quot;&gt;Límite aceptable (Tabla 2.2)&lt;/span&gt;&lt;span class=&quot;dv&quot; id=&quot;dm-lim&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;who-note&quot; id=&quot;mot-note&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+&lt;script&gt;
+const TABLE_2_3=[
+  [969,1000,61,3.2],[938,968,60,3.3],[907,937,59,3.3],[876,906,58,3.4],
+  [846,875,57,3.4],[817,845,56,3.5],[788,816,55,3.6],[760,787,54,3.6],
+  [732,759,53,3.7],[704,731,52,3.8],[678,703,51,3.8],[651,677,50,3.9],
+  [625,650,49,4.0],[600,624,48,4.1],[576,599,47,4.2],[551,575,46,4.3],
+  [528,550,45,4.4],[504,527,44,4.5],[482,503,43,4.6],[460,481,42,4.7],
+  [438,459,41,4.8],[417,437,40,4.9],[396,416,39,5.0],[376,395,38,5.2],
+  [357,375,37,5.3],[338,356,36,5.4],[319,337,35,5.6],[301,318,34,5.8],
+  [284,300,33,5.9],[267,283,32,6.1],[251,266,31,6.3],[235,250,30,6.5],
+  [219,234,29,6.8],[206,218,28,7.0],[190,205,27,7.3],[176,189,26,7.5],
+  [163,175,25,7.8],[150,162,24,8.2],[138,149,23,8.5],[126,137,22,8.9],
+  [115,125,21,9.3],[105,114,20,9.8],[94,104,19,10.3],[85,93,18,10.8],
+  [76,84,17,11.5],[67,75,16,12.2],[59,66,15,13.0],[52,58,14,13.9],
+  [44,51,13,15.1],[38,43,12,16.2],[32,37,11,17.7],[27,31,10,19.2],
+  [22,26,9,21.3],[17,21,8,24.3],[13,16,7,27.7],[10,12,6,31.6],
+  [7,9,5,37.8],[5,6,4,44.7],[3,4,3,57.7],[2,2,2,70.7],[1,1,1,100.0]
+];
+
+const TABLE_2_2=[
+  [1,1,2],[2,3,3],[4,6,4],[7,9,5],[10,13,6],[14,19,7],[20,27,8],
+  [28,44,9],[45,55,10],[56,72,9],[73,80,8],[81,86,7],[87,90,6],
+  [91,93,5],[94,96,4],[97,98,3],[99,99,2]
+];
+
+const TABLE_2_4={
+  2:{sq:{5:20,10:40,25:100},gr:{2:200,3:300,4:400,5:500,6:600,7:700,8:800,9:900}},
+  5:{sq:{5:8,10:16,25:40},gr:{2:80,3:120,4:160,5:200,6:240,7:280,8:320,9:360}},
+  10:{sq:{5:4,10:8,25:20},gr:{2:40,3:60,4:80,5:100,6:120,7:140,8:160,9:180}},
+  20:{sq:{5:2,10:4,25:10},gr:{2:20,3:30,4:40,5:50,6:60,7:70,8:80,9:90}},
+  50:{sq:{5:0.8,10:1.6,25:4},gr:{2:8,3:12,4:16,5:20,6:24,7:28,8:32,9:36}}
+};
+
+let areaType=&#x27;squares&#x27;;
+
+function switchTab(tab){
+  document.querySelectorAll(&#x27;.tab-btn&#x27;).forEach((b,i)=&gt;b.classList.toggle(&#x27;active&#x27;,(i===0&amp;&amp;tab===&#x27;conc&#x27;)||(i===1&amp;&amp;tab===&#x27;mot&#x27;)));
+  document.getElementById(&#x27;tab-conc&#x27;).classList.toggle(&#x27;active&#x27;,tab===&#x27;conc&#x27;);
+  document.getElementById(&#x27;tab-mot&#x27;).classList.toggle(&#x27;active&#x27;,tab===&#x27;mot&#x27;);
+}
+
+function setAreaType(type){
+  areaType=type;
+  document.getElementById(&#x27;btn-squares&#x27;).classList.toggle(&#x27;active&#x27;,type===&#x27;squares&#x27;);
+  document.getElementById(&#x27;btn-grids&#x27;).classList.toggle(&#x27;active&#x27;,type===&#x27;grids&#x27;);
+  document.getElementById(&#x27;squares-field&#x27;).style.display=type===&#x27;squares&#x27;?&#x27;&#x27;:&#x27;none&#x27;;
+  document.getElementById(&#x27;grids-field&#x27;).style.display=type===&#x27;grids&#x27;?&#x27;&#x27;:&#x27;none&#x27;;
+}
+
+function lookupT23(sum){for(const r of TABLE_2_3)if(sum&gt;=r[0]&amp;&amp;sum&lt;=r[1])return{limit:r[2],error:r[3]};return null;}
+function lookupT22(avg){const a=Math.round(avg);for(const r of TABLE_2_2)if(a&gt;=r[0]&amp;&amp;a&lt;=r[1])return r[2];return null;}
+function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display=&#x27;block&#x27;;}
+function hideErr(id){document.getElementById(id).style.display=&#x27;none&#x27;;}
+function fmtConc(v){return v&lt;0.1?v.toFixed(3):v&lt;10?v.toFixed(2):(Math.round(v*10)/10).toString();}
+
+function calcConc(){
+  hideErr(&#x27;conc-error&#x27;);
+  document.getElementById(&#x27;conc-results&#x27;).style.display=&#x27;none&#x27;;
+  const c1=parseFloat(document.getElementById(&#x27;count1&#x27;).value);
+  const c2=parseFloat(document.getElementById(&#x27;count2&#x27;).value);
+  const dil=parseInt(document.getElementById(&#x27;dilution&#x27;).value);
+  const vol=parseFloat(document.getElementById(&#x27;volume&#x27;).value);
+  if(isNaN(c1)||isNaN(c2)||c1&lt;0||c2&lt;0){showErr(&#x27;conc-error&#x27;,&#x27;Ingresa los conteos de ambas réplicas.&#x27;);return;}
+  const aKey=areaType===&#x27;squares&#x27;?parseInt(document.getElementById(&#x27;area-count&#x27;).value):parseInt(document.getElementById(&#x27;grid-count&#x27;).value);
+  const factor=areaType===&#x27;squares&#x27;?TABLE_2_4[dil].sq[aKey]:TABLE_2_4[dil].gr[aKey];
+  if(!factor){showErr(&#x27;conc-error&#x27;,&#x27;Combinación no válida en Tabla 2.4.&#x27;);return;}
+  const sum=c1+c2,diff=Math.abs(c1-c2);
+  const lk=lookupT23(sum);
+  if(!lk){showErr(&#x27;conc-error&#x27;,&#x27;Suma fuera de rango Tabla 2.3 (1–1000).&#x27;);return;}
+  const ok=diff&lt;=lk.limit;
+  const concM6=sum/factor;
+  const totalM6=(!isNaN(vol)&amp;&amp;vol&gt;0)?concM6*vol:null;
+  const aLbl=areaType===&#x27;squares&#x27;?`${aKey} cuadrados grandes`:`${aKey} cuadrículas periféricas`;
+  const vb=document.getElementById(&#x27;conc-verdict&#x27;);
+  vb.className=&#x27;verdict &#x27;+(ok?&#x27;accept&#x27;:&#x27;reject&#x27;);
+  document.getElementById(&#x27;conc-vicon&#x27;).textContent=ok?&#x27;✓&#x27;:&#x27;✗&#x27;;
+  document.getElementById(&#x27;conc-vtitle&#x27;).textContent=ok?&#x27;CONTEO ACEPTADO&#x27;:&#x27;CONTEO RECHAZADO&#x27;;
+  document.getElementById(&#x27;conc-vsub&#x27;).textContent=ok?`Diferencia ${diff} ≤ límite ${lk.limit} → réplicas concordantes`:`Diferencia ${diff} &gt; límite ${lk.limit} → preparar nuevas diluciones`;
+  document.getElementById(&#x27;r-conc&#x27;).textContent=ok?fmtConc(concM6):&#x27;—&#x27;;
+  document.getElementById(&#x27;r-error&#x27;).textContent=lk.error.toFixed(1)+&#x27;%&#x27;;
+  document.getElementById(&#x27;r-factor&#x27;).textContent=factor;
+  const mt=document.getElementById(&#x27;metric-total&#x27;);
+  if(ok&amp;&amp;totalM6!==null){mt.style.display=&#x27;&#x27;;document.getElementById(&#x27;r-total&#x27;).textContent=totalM6&lt;10?totalM6.toFixed(1):Math.round(totalM6);}
+  else mt.style.display=&#x27;none&#x27;;
+  document.getElementById(&#x27;d-dil&#x27;).textContent=`1 : ${dil}`;
+  document.getElementById(&#x27;d-area&#x27;).textContent=aLbl;
+  document.getElementById(&#x27;d-r1&#x27;).textContent=c1;
+  document.getElementById(&#x27;d-r2&#x27;).textContent=c2;
+  document.getElementById(&#x27;d-sum&#x27;).textContent=sum;
+  const de=document.getElementById(&#x27;d-diff&#x27;);de.textContent=diff;de.className=&#x27;dv &#x27;+(ok?&#x27;diff-ok&#x27;:&#x27;diff-bad&#x27;);
+  document.getElementById(&#x27;d-lim&#x27;).textContent=lk.limit;
+  let note=`&lt;strong&gt;Tabla 2.3&lt;/strong&gt;: suma ${sum} → límite &lt;strong&gt;${lk.limit}&lt;/strong&gt; (IC 95%). Error estimado: &lt;strong&gt;${lk.error}%&lt;/strong&gt;. `;
+  note+=ok?`Factor ${factor} · dilución 1:${dil} · ${aLbl}.${totalM6?` Total = ${fmtConc(concM6)} × ${vol} ml.`:&#x27;&#x27;}`:
+    `Repetir hasta 2 veces más; si persiste, reportar promedio con nota de alta variabilidad.`;
+  document.getElementById(&#x27;conc-note&#x27;).innerHTML=note;
+  document.getElementById(&#x27;conc-results&#x27;).style.display=&#x27;block&#x27;;
+  document.getElementById(&#x27;conc-results&#x27;).scrollIntoView({behavior:&#x27;smooth&#x27;,block:&#x27;nearest&#x27;});
+}
+
+function resetConc(){
+  [&#x27;count1&#x27;,&#x27;count2&#x27;,&#x27;volume&#x27;].forEach(id=&gt;document.getElementById(id).value=&#x27;&#x27;);
+  document.getElementById(&#x27;dilution&#x27;).value=&#x27;10&#x27;;
+  document.getElementById(&#x27;area-count&#x27;).value=&#x27;5&#x27;;
+  setAreaType(&#x27;squares&#x27;);
+  hideErr(&#x27;conc-error&#x27;);
+  document.getElementById(&#x27;conc-results&#x27;).style.display=&#x27;none&#x27;;
+}
+
+function gv(id){return parseFloat(document.getElementById(id).value)||0;}
+
+function updateTotal(rep){
+  document.getElementById(`mot-total${rep}`).textContent=gv(`m${rep}-pr`)+gv(`m${rep}-ps`)+gv(`m${rep}-np`)+gv(`m${rep}-im`);
+}
+
+[&#x27;pr&#x27;,&#x27;ps&#x27;,&#x27;np&#x27;,&#x27;im&#x27;].forEach(c=&gt;[1,2].forEach(r=&gt;{
+  const el=document.getElementById(`m${r}-${c}`);
+  if(el)el.addEventListener(&#x27;input&#x27;,()=&gt;updateTotal(r));
+}));
+
+function calcMot(){
+  hideErr(&#x27;mot-error&#x27;);
+  document.getElementById(&#x27;mot-results&#x27;).style.display=&#x27;none&#x27;;
+  const r1={pr:gv(&#x27;m1-pr&#x27;),ps:gv(&#x27;m1-ps&#x27;),np:gv(&#x27;m1-np&#x27;),im:gv(&#x27;m1-im&#x27;)};
+  const r2={pr:gv(&#x27;m2-pr&#x27;),ps:gv(&#x27;m2-ps&#x27;),np:gv(&#x27;m2-np&#x27;),im:gv(&#x27;m2-im&#x27;)};
+  const t1=r1.pr+r1.ps+r1.np+r1.im,t2=r2.pr+r2.ps+r2.np+r2.im;
+  if(t1&lt;1||t2&lt;1){showErr(&#x27;mot-error&#x27;,&#x27;Ingresa los conteos de ambas réplicas.&#x27;);return;}
+  if(t1&lt;200||t2&lt;200){showErr(&#x27;mot-error&#x27;,`Advertencia: réplica ${t1&lt;200?1:2} con ${t1&lt;200?t1:t2} esp — se recomiendan ≥200. Puedes continuar.`);}
+  const p1={pr:r1.pr/t1*100,ps:r1.ps/t1*100,np:r1.np/t1*100,im:r1.im/t1*100};
+  const p2={pr:r2.pr/t2*100,ps:r2.ps/t2*100,np:r2.np/t2*100,im:r2.im/t2*100};
+  const avg={pr:(p1.pr+p2.pr)/2,ps:(p1.ps+p2.ps)/2,np:(p1.np+p2.np)/2,im:(p1.im+p2.im)/2};
+  const motPct=avg.pr+avg.ps+avg.np,immPct=avg.im;
+  const domIsImm=immPct&gt;motPct;
+  const domAvg=domIsImm?immPct:motPct;
+  const domDiff=domIsImm?Math.abs(p1.im-p2.im):Math.abs((p1.pr+p1.ps+p1.np)-(p2.pr+p2.ps+p2.np));
+  const lim=lookupT22(domAvg);
+  const ok=lim!==null&amp;&amp;domDiff&lt;=lim;
+  let rnd={pr:Math.round(avg.pr),ps:Math.round(avg.ps),np:Math.round(avg.np),im:Math.round(avg.im)};
+  const s=rnd.pr+rnd.ps+rnd.np+rnd.im;
+  if(s===99){domIsImm?rnd.im++:rnd.pr++;}
+  if(s===101){domIsImm?rnd.im--:rnd.pr--;}
+  const progPct=rnd.pr+rnd.ps,totMotPct=progPct+rnd.np;
+  const vb=document.getElementById(&#x27;mot-verdict&#x27;);
+  vb.className=&#x27;verdict &#x27;+(ok?&#x27;accept&#x27;:&#x27;reject&#x27;);
+  document.getElementById(&#x27;mot-vicon&#x27;).textContent=ok?&#x27;✓&#x27;:&#x27;✗&#x27;;
+  document.getElementById(&#x27;mot-vtitle&#x27;).textContent=ok?&#x27;MOTILIDAD ACEPTADA&#x27;:&#x27;MOTILIDAD RECHAZADA&#x27;;
+  document.getElementById(&#x27;mot-vsub&#x27;).textContent=ok?`Diferencia ${domDiff.toFixed(1)}% ≤ límite ${lim}% → réplicas concordantes`:`Diferencia ${domDiff.toFixed(1)}% &gt; límite ${lim??&#x27;—&#x27;}% → repetir con nuevas preparaciones`;
+  [&#x27;pr&#x27;,&#x27;ps&#x27;,&#x27;np&#x27;,&#x27;im&#x27;].forEach(c=&gt;{
+    const seg=document.getElementById(`bar-${c}`);
+    seg.style.width=rnd[c]+&#x27;%&#x27;;
+    seg.textContent=rnd[c]&gt;5?rnd[c]+&#x27;%&#x27;:&#x27;&#x27;;
+  });
+  document.getElementById(&#x27;leg-pr&#x27;).textContent=`PR rápido ${rnd.pr}%`;
+  document.getElementById(&#x27;leg-ps&#x27;).textContent=`PR lento ${rnd.ps}%`;
+  document.getElementById(&#x27;leg-np&#x27;).textContent=`No prog. ${rnd.np}%`;
+  document.getElementById(&#x27;leg-im&#x27;).textContent=`Inmóvil ${rnd.im}%`;
+  const pe=document.getElementById(&#x27;r-prog&#x27;);pe.textContent=progPct+&#x27;%&#x27;;pe.style.color=progPct&gt;=32?&#x27;var(--accept)&#x27;:&#x27;var(--reject)&#x27;;
+  const te=document.getElementById(&#x27;r-mot-total&#x27;);te.textContent=totMotPct+&#x27;%&#x27;;te.style.color=totMotPct&gt;=40?&#x27;var(--accept)&#x27;:&#x27;var(--reject)&#x27;;
+  document.getElementById(&#x27;r-imm&#x27;).textContent=rnd.im+&#x27;%&#x27;;
+  document.getElementById(&#x27;r-mot-diff&#x27;).textContent=`${domDiff.toFixed(1)}% / lím ${lim??&#x27;—&#x27;}%`;
+  document.getElementById(&#x27;dm-pr&#x27;).textContent=rnd.pr+&#x27;%&#x27;;
+  document.getElementById(&#x27;dm-ps&#x27;).textContent=rnd.ps+&#x27;%&#x27;;
+  document.getElementById(&#x27;dm-np&#x27;).textContent=rnd.np+&#x27;%&#x27;;
+  document.getElementById(&#x27;dm-im&#x27;).textContent=rnd.im+&#x27;%&#x27;;
+  document.getElementById(&#x27;dm-dom&#x27;).textContent=(domIsImm?&#x27;Inmóvil&#x27;:&#x27;Mótil&#x27;)+` (${domAvg.toFixed(1)}% promedio)`;
+  const dd=document.getElementById(&#x27;dm-diff&#x27;);dd.textContent=domDiff.toFixed(1)+&#x27;%&#x27;;dd.className=&#x27;dv &#x27;+(ok?&#x27;diff-ok&#x27;:&#x27;diff-bad&#x27;);
+  document.getElementById(&#x27;dm-lim&#x27;).textContent=lim?lim+&#x27;%&#x27;:&#x27;—&#x27;;
+  let note=`&lt;strong&gt;Tabla 2.2&lt;/strong&gt;: grupo dominante &quot;${domIsImm?&#x27;inmóvil&#x27;:&#x27;mótil&#x27;}&quot; ${domAvg.toFixed(1)}% → límite &lt;strong&gt;${lim??&#x27;—&#x27;}%&lt;/strong&gt;. `;
+  note+=`&lt;strong&gt;Motilidad progresiva (PR)&lt;/strong&gt;: ${progPct}% `;
+  note+=progPct&gt;=32?`✓ ≥ 32% (ref. OMS). `:`✗ &amp;lt; 32% (ref. OMS). `;
+  note+=`&lt;strong&gt;Motilidad total&lt;/strong&gt;: ${totMotPct}% `;
+  note+=totMotPct&gt;=40?`✓ ≥ 40% (ref. OMS).`:`✗ &amp;lt; 40% (ref. OMS).`;
+  if(!ok)note+=` Repetir hasta 2 veces más; si persiste, reportar promedio de 6 evaluaciones.`;
+  document.getElementById(&#x27;mot-note&#x27;).innerHTML=note;
+  document.getElementById(&#x27;mot-results&#x27;).style.display=&#x27;block&#x27;;
+  document.getElementById(&#x27;mot-results&#x27;).scrollIntoView({behavior:&#x27;smooth&#x27;,block:&#x27;nearest&#x27;});
+}
+
+function resetMot(){
+  [&#x27;m1-pr&#x27;,&#x27;m1-ps&#x27;,&#x27;m1-np&#x27;,&#x27;m1-im&#x27;,&#x27;m2-pr&#x27;,&#x27;m2-ps&#x27;,&#x27;m2-np&#x27;,&#x27;m2-im&#x27;].forEach(id=&gt;document.getElementById(id).value=&#x27;&#x27;);
+  [&#x27;mot-total1&#x27;,&#x27;mot-total2&#x27;].forEach(id=&gt;document.getElementById(id).textContent=&#x27;0&#x27;);
+  hideErr(&#x27;mot-error&#x27;);
+  document.getElementById(&#x27;mot-results&#x27;).style.display=&#x27;none&#x27;;
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe><iframe id="p4" title="Obstétrica" sandbox="allow-scripts allow-same-origin allow-modals allow-downloads" hidden srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Calculadora Obstétrica&lt;/title&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;style&gt;
+  :root {
+    --rose: #c8687a;
+    --rose-light: #f2d4d9;
+    --rose-pale: #fdf0f2;
+    --plum: #5c3d4e;
+    --plum-mid: #8a5f72;
+    --cream: #faf7f4;
+    --gold: #c9975a;
+    --text: #2e1f28;
+    --muted: #9a7d88;
+    --white: #ffffff;
+    --shadow: 0 4px 24px rgba(92,61,78,0.10);
+    --shadow-lg: 0 12px 48px rgba(92,61,78,0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: &#x27;DM Sans&#x27;, sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 0 60px 0;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--plum) 0%, var(--rose) 100%);
+    padding: 48px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: &#x27;&#x27;;
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    top: -100px; right: -80px;
+  }
+  header::after {
+    content: &#x27;&#x27;;
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    bottom: -60px; left: -40px;
+  }
+
+  header h1 {
+    font-family: &#x27;DM Serif Display&#x27;, serif;
+    font-size: 2.1rem;
+    color: #fff;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 1;
+  }
+  header p {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.92rem;
+    margin-top: 8px;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 28px 28px 24px;
+    margin-top: 28px;
+  }
+
+  .card-title {
+    font-family: &#x27;DM Serif Display&#x27;, serif;
+    font-size: 1.15rem;
+    color: var(--plum);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-title span.icon {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    background: var(--rose-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--plum-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 8px;
+  }
+  input[type=&quot;date&quot;], input[type=&quot;number&quot;], select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--rose-light);
+    border-radius: 12px;
+    font-family: &#x27;DM Sans&#x27;, sans-serif;
+    font-size: 0.97rem;
+    color: var(--text);
+    background: var(--rose-pale);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus, select:focus {
+    border-color: var(--rose);
+    box-shadow: 0 0 0 3px rgba(200,104,122,0.12);
+  }
+
+  .row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .row3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* β-hCG estimada hoy */
+  .hcg-today-box {
+    background: linear-gradient(135deg, #f9edf0 0%, #fdf6ee 100%);
+    border: 1.5px solid var(--rose-light);
+    border-radius: 16px;
+    padding: 20px 20px 16px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .hcg-today-box .hcg-icon { font-size: 2rem; flex-shrink: 0; }
+  .hcg-today-box .hcg-label {
+    font-size: 0.75rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
+  }
+  .hcg-today-box .hcg-val {
+    font-family: &#x27;DM Serif Display&#x27;, serif;
+    font-size: 1.7rem; color: var(--plum); line-height: 1.1;
+  }
+  .hcg-today-box .hcg-range { font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
+  .hcg-today-box .hcg-duplicaciones { font-size: 0.78rem; color: var(--plum-mid); margin-top: 4px; font-weight: 500; }
+
+  button.calcular {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--plum) 0%, var(--rose) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-family: &#x27;DM Sans&#x27;, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    box-shadow: 0 6px 20px rgba(200,104,122,0.30);
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-top: 8px;
+  }
+  button.calcular:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(200,104,122,0.35);
+  }
+  button.calcular:active { transform: translateY(0); }
+
+  /* Results */
+  #resultados { display: none; }
+
+  .result-hero {
+    background: linear-gradient(135deg, var(--plum) 0%, #7a4a5e 100%);
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-top: 28px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .result-hero::before {
+    content: &#x27;&#x27;;
+    position: absolute;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    top: -60px; right: -40px;
+  }
+  .result-hero .label {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .result-hero .big {
+    font-family: &#x27;DM Serif Display&#x27;, serif;
+    font-size: 3rem;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .result-hero .sub {
+    color: rgba(255,255,255,0.70);
+    font-size: 0.88rem;
+    margin-top: 6px;
+  }
+  .result-hero .fpp {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.80);
+    font-size: 0.9rem;
+  }
+  .result-hero .fpp strong {
+    color: #fff;
+    font-size: 1.05rem;
+  }
+
+  .grid-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .stat-box {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 18px 16px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--rose);
+  }
+  .stat-box.gold { border-left-color: var(--gold); }
+  .stat-box.plum { border-left-color: var(--plum); }
+  .stat-box .s-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .stat-box .s-val {
+    font-family: &#x27;DM Serif Display&#x27;, serif;
+    font-size: 1.35rem;
+    color: var(--plum);
+  }
+  .stat-box .s-sub {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* Ventana fértil */
+  .fertile-bar {
+    margin-top: 6px;
+    background: var(--rose-pale);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .fertile-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--plum-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  .day-row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .day-chip {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: var(--white);
+    color: var(--muted);
+    border: 1.5px solid var(--rose-light);
+    transition: all 0.2s;
+  }
+  .day-chip.fertile {
+    background: var(--rose-light);
+    color: var(--plum);
+    border-color: var(--rose);
+    font-weight: 600;
+  }
+  .day-chip.ovulation {
+    background: var(--rose);
+    color: var(--white);
+    border-color: var(--rose);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(200,104,122,0.35);
+  }
+  .legend {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .leg-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.75rem; color: var(--muted);
+  }
+  .leg-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+
+  /* β-hCG tabla */
+  .hcg-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4px;
+  }
+  .hcg-table th {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 8px 12px;
+    text-align: left;
+    background: var(--rose-pale);
+  }
+  .hcg-table th:first-child { border-radius: 10px 0 0 10px; }
+  .hcg-table th:last-child { border-radius: 0 10px 10px 0; }
+  .hcg-table td {
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    border-bottom: 1px solid var(--rose-pale);
+    color: var(--text);
+  }
+  .hcg-table tr.current td {
+    background: linear-gradient(90deg, rgba(200,104,122,0.08), transparent);
+    font-weight: 600;
+    color: var(--plum);
+  }
+  .hcg-table tr.current td:first-child {
+    border-left: 3px solid var(--rose);
+    padding-left: 9px;
+  }
+  .badge-current {
+    display: inline-block;
+    background: var(--rose);
+    color: #fff;
+    font-size: 0.67rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 6px;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+  }
+
+  /* Alerta duplicación */
+  .duplication-alert {
+    background: var(--rose-pale);
+    border: 1.5px solid var(--rose-light);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-top: 16px;
+    font-size: 0.88rem;
+    color: var(--plum);
+    line-height: 1.6;
+  }
+  .duplication-alert strong { color: var(--rose); }
+
+  .stat-box.hcg { border-left-color: #6a9e7f; }
+  .hcg-result-box {
+    background: linear-gradient(135deg, #1e4d35 0%, #2d7a52 100%);
+    border-radius: 16px;
+    padding: 20px 22px;
+    margin-top: 16px;
+    color: #fff;
+  }
+  .hcg-result-box .h-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .hcg-result-box .h-val {
+    font-family: &#x27;DM Serif Display&#x27;, serif;
+    font-size: 2.2rem;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .hcg-result-box .h-range {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.65);
+    margin-top: 6px;
+  }
+  .hcg-result-box .h-sub {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    line-height: 1.6;
+  }
+  .dupli-steps {
+    margin-top: 14px;
+    overflow-x: auto;
+  }
+  .dupli-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.83rem;
+  }
+  .dupli-table th {
+    background: var(--rose-pale);
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.4px;
+    padding: 7px 10px;
+    text-align: left;
+  }
+  .dupli-table th:first-child { border-radius: 8px 0 0 8px; }
+  .dupli-table th:last-child { border-radius: 0 8px 8px 0; }
+  .dupli-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--rose-pale);
+    color: var(--text);
+  }
+  .dupli-table tr.highlight td {
+    background: rgba(106,158,127,0.10);
+    font-weight: 700;
+    color: #1e4d35;
+  }
+  .dupli-table tr.highlight td:first-child {
+    border-left: 3px solid #2d7a52;
+    padding-left: 7px;
+  }
+  .badge-hoy {
+    display: inline-block;
+    background: #2d7a52;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 14px;
+    line-height: 1.6;
+    padding-left: 12px;
+    border-left: 3px solid var(--rose-light);
+  }
+
+  /* ── Separador de secciones ── */
+  .section-divider {
+    text-align: center;
+    margin: 36px 0 0;
+    position: relative;
+  }
+  .section-divider::before {
+    content: &#x27;&#x27;;
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: var(--rose-light);
+  }
+  .section-divider span {
+    position: relative;
+    background: var(--cream);
+    padding: 0 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── Evaluador de duplicación ── */
+  .dup-result {
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-top: 16px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .dup-result.normal { background: #edf7ed; border: 1.5px solid #a8d5a8; color: #2e5c2e; }
+  .dup-result.lento  { background: #fff8e1; border: 1.5px solid #f0c040; color: #6b4c00; }
+  .dup-result.caida  { background: #fdecea; border: 1.5px solid #e8a0a0; color: #7a1f1f; }
+  .dup-result .dup-big {
+    font-family: &#x27;DM Serif Display&#x27;, serif;
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ── LCC ── */
+  .lcc-result {
+    background: var(--rose-pale);
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 16px;
+    text-align: center;
+  }
+  .lcc-result .lcc-big {
+    font-family: &#x27;DM Serif Display&#x27;, serif;
+    font-size: 2rem;
+    color: var(--plum);
+  }
+  .lcc-result .lcc-sub { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+  .lcc-result .lcc-fpp { font-size: 0.88rem; color: var(--plum-mid); margin-top: 8px; font-weight: 500; }
+
+  /* ── Siguiente menstruación ── */
+  .mens-result {
+    background: linear-gradient(135deg, #f5eef8, #fdf0f2);
+    border: 1.5px solid var(--rose-light);
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 16px;
+    text-align: center;
+  }
+  .mens-result .mens-big {
+    font-family: &#x27;DM Serif Display&#x27;, serif;
+    font-size: 1.6rem;
+    color: var(--plum);
+  }
+  .mens-result .mens-sub { font-size: 0.83rem; color: var(--muted); margin-top: 4px; }
+
+  button.btn-sec {
+    padding: 12px 20px;
+    background: var(--white);
+    color: var(--plum);
+    border: 1.5px solid var(--rose-light);
+    border-radius: 12px;
+    font-family: &#x27;DM Sans&#x27;, sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    width: 100%;
+    margin-top: 8px;
+  }
+  button.btn-sec:hover { background: var(--rose-pale); border-color: var(--rose); }
+
+  @media (max-width: 480px) {
+    .row2 { grid-template-columns: 1fr; }
+    .grid-stats { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.6rem; }
+    .result-hero .big { font-size: 2.4rem; }
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;header&gt;
+  &lt;h1&gt;Calculadora Obstétrica&lt;/h1&gt;
+  &lt;p&gt;Edad gestacional · Ventana fértil · Curva β-hCG&lt;/p&gt;
+&lt;/header&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card-title&quot;&gt;
+      &lt;span class=&quot;icon&quot;&gt;📅&lt;/span&gt;
+      Datos de entrada
+    &lt;/div&gt;
+
+    &lt;div class=&quot;input-group&quot;&gt;
+      &lt;label&gt;Fecha de última regla (FUR)&lt;/label&gt;
+      &lt;input type=&quot;date&quot; id=&quot;fur&quot; /&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;row2&quot;&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;Duración del ciclo (días)&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;ciclo&quot; value=&quot;28&quot; min=&quot;21&quot; max=&quot;45&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;Fecha de relación sexual&lt;/label&gt;
+        &lt;input type=&quot;date&quot; id=&quot;relacion&quot; /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;row2&quot;&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;β-hCG inicial en implantación (mUI/mL)&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;hcg-inicial&quot; value=&quot;5&quot; min=&quot;1&quot; max=&quot;100&quot; step=&quot;0.5&quot; placeholder=&quot;ej. 5&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;Horas de duplicación&lt;/label&gt;
+        &lt;select id=&quot;hcg-duplicacion&quot;&gt;
+          &lt;option value=&quot;48&quot;&gt;48 h (escenario óptimo)&lt;/option&gt;
+          &lt;option value=&quot;60&quot; selected&gt;60 h (promedio)&lt;/option&gt;
+          &lt;option value=&quot;72&quot;&gt;72 h (límite normal)&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div style=&quot;border-top: 1.5px solid var(--rose-light); margin: 0 0 20px; padding-top: 20px;&quot;&gt;
+      &lt;div class=&quot;card-title&quot; style=&quot;margin-bottom:16px; font-size:1rem;&quot;&gt;
+        &lt;span class=&quot;icon&quot;&gt;🧪&lt;/span&gt;
+        β-hCG conocida (opcional)
+      &lt;/div&gt;
+      &lt;div class=&quot;row2&quot;&gt;
+        &lt;div class=&quot;input-group&quot; style=&quot;margin-bottom:0&quot;&gt;
+          &lt;label&gt;Valor β-hCG (mUI/mL)&lt;/label&gt;
+          &lt;input type=&quot;number&quot; id=&quot;hcg-valor&quot; placeholder=&quot;ej. 5&quot; min=&quot;0&quot; step=&quot;0.1&quot; /&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;input-group&quot; style=&quot;margin-bottom:0&quot;&gt;
+          &lt;label&gt;Fecha de ese valor&lt;/label&gt;
+          &lt;input type=&quot;date&quot; id=&quot;hcg-fecha&quot; /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;input-group&quot; style=&quot;margin-top:16px; margin-bottom:0&quot;&gt;
+        &lt;label&gt;Intervalo de duplicación&lt;/label&gt;
+        &lt;select id=&quot;hcg-intervalo&quot;&gt;
+          &lt;option value=&quot;48&quot;&gt;Cada 48 horas (óptimo)&lt;/option&gt;
+          &lt;option value=&quot;60&quot;&gt;Cada 60 horas&lt;/option&gt;
+          &lt;option value=&quot;72&quot;&gt;Cada 72 horas&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;button class=&quot;calcular&quot; onclick=&quot;calcular()&quot;&gt;Calcular&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;resultados&quot;&gt;
+
+    &lt;!-- Hero: edad gestacional --&gt;
+    &lt;div class=&quot;result-hero&quot;&gt;
+      &lt;div class=&quot;label&quot;&gt;Edad gestacional obstétrica&lt;/div&gt;
+      &lt;div class=&quot;big&quot; id=&quot;r-semanas&quot;&gt;— sem&lt;/div&gt;
+      &lt;div class=&quot;sub&quot; id=&quot;r-dias-extra&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;fpp&quot; id=&quot;r-fpp&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Stats grid --&gt;
+    &lt;div class=&quot;grid-stats&quot;&gt;
+      &lt;div class=&quot;stat-box&quot;&gt;
+        &lt;div class=&quot;s-label&quot;&gt;Ovulación estimada&lt;/div&gt;
+        &lt;div class=&quot;s-val&quot; id=&quot;r-ovulacion&quot;&gt;—&lt;/div&gt;
+        &lt;div class=&quot;s-sub&quot;&gt;Día &lt;span id=&quot;r-dia-ovul&quot;&gt;14&lt;/span&gt; del ciclo&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;stat-box gold&quot;&gt;
+        &lt;div class=&quot;s-label&quot;&gt;Implantación estimada&lt;/div&gt;
+        &lt;div class=&quot;s-val&quot; id=&quot;r-implantacion&quot;&gt;—&lt;/div&gt;
+        &lt;div class=&quot;s-sub&quot;&gt;≈ 8–9 días post-fecundación&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;stat-box plum&quot;&gt;
+        &lt;div class=&quot;s-label&quot;&gt;Inicio β-hCG&lt;/div&gt;
+        &lt;div class=&quot;s-val&quot; id=&quot;r-inicio-hcg&quot;&gt;—&lt;/div&gt;
+        &lt;div class=&quot;s-sub&quot;&gt;Detectable en sangre&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;stat-box&quot;&gt;
+        &lt;div class=&quot;s-label&quot;&gt;Edad embrionaria real&lt;/div&gt;
+        &lt;div class=&quot;s-val&quot; id=&quot;r-edad-embrionaria&quot;&gt;—&lt;/div&gt;
+        &lt;div class=&quot;s-sub&quot;&gt;Desde fecundación&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- β-hCG estimada HOY --&gt;
+    &lt;div class=&quot;card&quot;&gt;
+      &lt;div class=&quot;card-title&quot;&gt;
+        &lt;span class=&quot;icon&quot;&gt;🧬&lt;/span&gt;
+        β-hCG estimada hoy (por duplicación)
+      &lt;/div&gt;
+      &lt;div class=&quot;hcg-today-box&quot;&gt;
+        &lt;div class=&quot;hcg-icon&quot;&gt;💉&lt;/div&gt;
+        &lt;div class=&quot;hcg-content&quot;&gt;
+          &lt;div class=&quot;hcg-label&quot;&gt;Valor puntual calculado&lt;/div&gt;
+          &lt;div class=&quot;hcg-val&quot; id=&quot;r-hcg-hoy&quot;&gt;—&lt;/div&gt;
+          &lt;div class=&quot;hcg-duplicaciones&quot; id=&quot;r-hcg-duplicaciones&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Tabla estadística --&gt;
+      &lt;div id=&quot;r-hcg-estadistica&quot; style=&quot;display:none; margin-top:18px;&quot;&gt;
+        &lt;table class=&quot;hcg-table&quot;&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Enfoque&lt;/th&gt;
+              &lt;th&gt;Límite inferior&lt;/th&gt;
+              &lt;th&gt;Estimado central&lt;/th&gt;
+              &lt;th&gt;Límite superior&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt;&lt;strong&gt;IC 95% (CV biol. 30%)&lt;/strong&gt;&lt;br&gt;&lt;span style=&quot;font-size:0.75rem;color:var(--muted)&quot;&gt;Propagación log-normal&lt;/span&gt;&lt;/td&gt;
+              &lt;td id=&quot;r-ic95-lo&quot;&gt;—&lt;/td&gt;
+              &lt;td id=&quot;r-ic95-mid&quot;&gt;—&lt;/td&gt;
+              &lt;td id=&quot;r-ic95-hi&quot;&gt;—&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;&lt;strong&gt;Ref. laboratorio ECLIA&lt;/strong&gt;&lt;br&gt;&lt;span style=&quot;font-size:0.75rem;color:var(--muted)&quot;&gt;Mín. – Media geom. – Máx.&lt;/span&gt;&lt;/td&gt;
+              &lt;td id=&quot;r-barn-p5&quot;&gt;—&lt;/td&gt;
+              &lt;td id=&quot;r-barn-p50&quot;&gt;—&lt;/td&gt;
+              &lt;td id=&quot;r-barn-p95&quot;&gt;—&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr style=&quot;background:var(--rose-pale)&quot;&gt;
+              &lt;td&gt;&lt;strong&gt;Rango duplicación&lt;/strong&gt;&lt;br&gt;&lt;span style=&quot;font-size:0.75rem;color:var(--muted)&quot;&gt;T½ 72 h → T½ 48 h&lt;/span&gt;&lt;/td&gt;
+              &lt;td id=&quot;r-dup-lo&quot;&gt;—&lt;/td&gt;
+              &lt;td id=&quot;r-dup-mid&quot;&gt;—&lt;/td&gt;
+              &lt;td id=&quot;r-dup-hi&quot;&gt;—&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;!-- Status ECLIA --&gt;
+        &lt;div id=&quot;r-eclia-status&quot; style=&quot;margin-top:10px; font-size:0.88rem; font-weight:600; padding:8px 14px; border-radius:10px; background:var(--rose-pale);&quot;&gt;&lt;/div&gt;
+
+        &lt;!-- Barra visual IC95 --&gt;
+        &lt;div style=&quot;margin-top:16px; padding:14px 16px; background:var(--rose-pale); border-radius:12px;&quot;&gt;
+          &lt;div style=&quot;font-size:0.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px&quot;&gt;
+            Visualización IC 95% (escala log)
+          &lt;/div&gt;
+          &lt;div style=&quot;position:relative; height:28px; border-radius:8px; overflow:hidden; background:#e8d0d5;&quot;&gt;
+            &lt;div id=&quot;r-bar-ic&quot; style=&quot;position:absolute;height:100%;background:linear-gradient(90deg,#e8a8b4,#c8687a,#8a5f72);border-radius:8px;transition:all 0.4s;&quot;&gt;&lt;/div&gt;
+            &lt;div id=&quot;r-bar-punto&quot; style=&quot;position:absolute;top:0;height:100%;width:3px;background:var(--plum);border-radius:2px;&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div style=&quot;display:flex;justify-content:space-between;margin-top:5px;font-size:0.72rem;color:var(--muted)&quot;&gt;
+            &lt;span id=&quot;r-bar-lo-lbl&quot;&gt;—&lt;/span&gt;
+            &lt;span style=&quot;color:var(--plum);font-weight:600&quot; id=&quot;r-bar-mid-lbl&quot;&gt;▲ estimado&lt;/span&gt;
+            &lt;span id=&quot;r-bar-hi-lbl&quot;&gt;—&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- SD y notas --&gt;
+        &lt;div style=&quot;margin-top:12px;padding:12px 14px;background:#f5f0f2;border-radius:10px;font-size:0.82rem;color:var(--plum);line-height:1.7&quot;&gt;
+          &lt;strong&gt;Desviación estándar (escala log):&lt;/strong&gt; σ = &lt;span id=&quot;r-sd-log&quot;&gt;—&lt;/span&gt;&lt;br&gt;
+          &lt;strong&gt;Fórmula IC 95%:&lt;/strong&gt; valor × e&lt;sup&gt;±1.96·σ_ln&lt;/sup&gt; donde σ_ln = ln(1 + CV²)&lt;sup&gt;½&lt;/sup&gt;, CV = 30%&lt;br&gt;
+          &lt;strong&gt;Fórmula usada:&lt;/strong&gt; &lt;span id=&quot;r-hcg-formula&quot; style=&quot;font-family:monospace;font-size:0.78rem&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;p class=&quot;note&quot; style=&quot;margin-top:12px&quot;&gt;Los IC 95% asumen distribución log-normal con CV biológico del 30% (Duan 2021). Los rangos de referencia ECLIA corresponden a los valores del laboratorio (método ECLIA). La media geométrica se calcula como √(mín × máx). Todos los valores son estimaciones — no reemplazan la determinación sérica real.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card&quot; id=&quot;card-relacion&quot; style=&quot;display:none&quot;&gt;
+      &lt;div class=&quot;card-title&quot;&gt;
+        &lt;span class=&quot;icon&quot;&gt;💑&lt;/span&gt;
+        Evaluación de relación sexual
+      &lt;/div&gt;
+      &lt;div id=&quot;r-relacion-eval&quot; style=&quot;font-size:0.92rem; line-height:1.7; color:var(--plum)&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Ventana fértil --&gt;
+    &lt;div class=&quot;card&quot;&gt;
+      &lt;div class=&quot;card-title&quot;&gt;
+        &lt;span class=&quot;icon&quot;&gt;🌸&lt;/span&gt;
+        Ventana fértil del ciclo
+      &lt;/div&gt;
+      &lt;div class=&quot;fertile-bar&quot;&gt;
+        &lt;div class=&quot;fertile-title&quot;&gt;Días del ciclo (1–&lt;span id=&quot;r-ciclo-len&quot;&gt;28&lt;/span&gt;)&lt;/div&gt;
+        &lt;div class=&quot;day-row&quot; id=&quot;r-days-chips&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;legend&quot;&gt;
+          &lt;div class=&quot;leg-item&quot;&gt;&lt;div class=&quot;leg-dot&quot; style=&quot;background:var(--rose)&quot;&gt;&lt;/div&gt; Ovulación&lt;/div&gt;
+          &lt;div class=&quot;leg-item&quot;&gt;&lt;div class=&quot;leg-dot&quot; style=&quot;background:var(--rose-light);border:1.5px solid var(--rose)&quot;&gt;&lt;/div&gt; Fértil&lt;/div&gt;
+          &lt;div class=&quot;leg-item&quot;&gt;&lt;div class=&quot;leg-dot&quot; style=&quot;background:var(--white);border:1.5px solid var(--rose-light)&quot;&gt;&lt;/div&gt; No fértil&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;note&quot; id=&quot;r-nota-relacion&quot;&gt;&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- β-hCG tabla --&gt;
+    &lt;div class=&quot;card&quot;&gt;
+      &lt;div class=&quot;card-title&quot;&gt;
+        &lt;span class=&quot;icon&quot;&gt;🧪&lt;/span&gt;
+        Curva de β-hCG estimada
+      &lt;/div&gt;
+      &lt;table class=&quot;hcg-table&quot;&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;Semana gestacional&lt;/th&gt;
+            &lt;th&gt;Mínimo (mUI/mL)&lt;/th&gt;
+            &lt;th&gt;Máximo (mUI/mL)&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody id=&quot;r-hcg-body&quot;&gt;&lt;/tbody&gt;
+      &lt;/table&gt;
+
+      &lt;div class=&quot;duplication-alert&quot;&gt;
+        ⏱️ En embarazo viable temprano, la β-hCG &lt;strong&gt;se duplica cada 48–72 h&lt;/strong&gt;. 
+        Un solo valor no es diagnóstico — lo clínicamente útil es comparar &lt;strong&gt;dos determinaciones separadas 48 horas&lt;/strong&gt;: 
+        el incremento debe ser ≥ 66% para considerarse normal.
+      &lt;/div&gt;
+      &lt;p class=&quot;note&quot;&gt;Rangos de referencia según valores del laboratorio (método ECLIA). La fila resaltada corresponde a la semana gestacional actual. No gestante: &amp;lt; 5 mUI/mL.&lt;/p&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;&lt;!-- /resultados --&gt;
+&lt;/div&gt;&lt;!-- /container --&gt;
+
+&lt;!-- ══════════════════════════════════════════
+     MÓDULOS INDEPENDIENTES
+════════════════════════════════════════════ --&gt;
+&lt;div class=&quot;container&quot;&gt;
+
+  &lt;div class=&quot;section-divider&quot;&gt;&lt;span&gt;Herramientas adicionales&lt;/span&gt;&lt;/div&gt;
+
+  &lt;!-- 1. EVALUADOR DE DUPLICACIÓN β-hCG --&gt;
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card-title&quot;&gt;
+      &lt;span class=&quot;icon&quot;&gt;📈&lt;/span&gt;
+      Evaluador de duplicación β-hCG
+    &lt;/div&gt;
+    &lt;p style=&quot;font-size:0.85rem;color:var(--muted);margin-bottom:18px;line-height:1.6&quot;&gt;
+      Ingresa dos determinaciones de β-hCG con sus fechas para evaluar si la velocidad de duplicación es normal.
+    &lt;/p&gt;
+    &lt;div class=&quot;row2&quot;&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;1ª determinación (fecha)&lt;/label&gt;
+        &lt;input type=&quot;date&quot; id=&quot;dup-fecha1&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;1ª determinación (mUI/mL)&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;dup-val1&quot; placeholder=&quot;ej. 320&quot; min=&quot;0&quot; /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row2&quot;&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;2ª determinación (fecha)&lt;/label&gt;
+        &lt;input type=&quot;date&quot; id=&quot;dup-fecha2&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;2ª determinación (mUI/mL)&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;dup-val2&quot; placeholder=&quot;ej. 750&quot; min=&quot;0&quot; /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class=&quot;btn-sec&quot; onclick=&quot;evaluarDuplicacion()&quot;&gt;Evaluar duplicación&lt;/button&gt;
+    &lt;div id=&quot;dup-resultado&quot; style=&quot;display:none&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 2. INTERPRETACIÓN LCC → EDAD GESTACIONAL --&gt;
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card-title&quot;&gt;
+      &lt;span class=&quot;icon&quot;&gt;🔬&lt;/span&gt;
+      Ecografía: LCC → Edad gestacional
+    &lt;/div&gt;
+    &lt;p style=&quot;font-size:0.85rem;color:var(--muted);margin-bottom:18px;line-height:1.6&quot;&gt;
+      Ingresa la longitud cráneo-caudal (LCC) medida en la ecografía del primer trimestre para estimar la edad gestacional y la FPP ecográfica.
+    &lt;/p&gt;
+    &lt;div class=&quot;row2&quot;&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;LCC (mm)&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;lcc-mm&quot; placeholder=&quot;ej. 15&quot; min=&quot;1&quot; max=&quot;85&quot; step=&quot;0.1&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;Fecha de la ecografía&lt;/label&gt;
+        &lt;input type=&quot;date&quot; id=&quot;lcc-fecha&quot; /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class=&quot;btn-sec&quot; onclick=&quot;calcularLCC()&quot;&gt;Calcular por LCC&lt;/button&gt;
+    &lt;div id=&quot;lcc-resultado&quot; style=&quot;display:none&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 3. PRÓXIMA MENSTRUACIÓN --&gt;
+  &lt;div class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card-title&quot;&gt;
+      &lt;span class=&quot;icon&quot;&gt;🗓️&lt;/span&gt;
+      Próxima menstruación (si no hay embarazo)
+    &lt;/div&gt;
+    &lt;p style=&quot;font-size:0.85rem;color:var(--muted);margin-bottom:18px;line-height:1.6&quot;&gt;
+      Calcula la fecha esperada de la próxima regla y cuándo hacer la prueba de embarazo si la menstruación no llega.
+    &lt;/p&gt;
+    &lt;div class=&quot;row2&quot;&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;Fecha de última regla (FUR)&lt;/label&gt;
+        &lt;input type=&quot;date&quot; id=&quot;mens-fur&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;input-group&quot;&gt;
+        &lt;label&gt;Duración del ciclo (días)&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;mens-ciclo&quot; value=&quot;28&quot; min=&quot;21&quot; max=&quot;45&quot; /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class=&quot;btn-sec&quot; onclick=&quot;calcularMenstruacion()&quot;&gt;Calcular próxima regla&lt;/button&gt;
+    &lt;div id=&quot;mens-resultado&quot; style=&quot;display:none&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;&lt;!-- /container adicional --&gt;
+
+&lt;script&gt;
+const meses = [&#x27;ene&#x27;,&#x27;feb&#x27;,&#x27;mar&#x27;,&#x27;abr&#x27;,&#x27;may&#x27;,&#x27;jun&#x27;,&#x27;jul&#x27;,&#x27;ago&#x27;,&#x27;sep&#x27;,&#x27;oct&#x27;,&#x27;nov&#x27;,&#x27;dic&#x27;];
+const mesesFull = [&#x27;enero&#x27;,&#x27;febrero&#x27;,&#x27;marzo&#x27;,&#x27;abril&#x27;,&#x27;mayo&#x27;,&#x27;junio&#x27;,&#x27;julio&#x27;,&#x27;agosto&#x27;,&#x27;septiembre&#x27;,&#x27;octubre&#x27;,&#x27;noviembre&#x27;,&#x27;diciembre&#x27;];
+
+function fmt(d) {
+  return `${d.getDate()} ${meses[d.getMonth()]} ${d.getFullYear()}`;
+}
+function fmtFull(d) {
+  return `${d.getDate()} de ${mesesFull[d.getMonth()]} de ${d.getFullYear()}`;
+}
+function addDays(d, n) {
+  const r = new Date(d);
+  r.setDate(r.getDate() + n);
+  return r;
+}
+function diffDays(a, b) {
+  return Math.floor((b - a) / 86400000);
+}
+
+function calcular() {
+  const furVal = document.getElementById(&#x27;fur&#x27;).value;
+  const cicloLen = parseInt(document.getElementById(&#x27;ciclo&#x27;).value) || 28;
+  const relacionVal = document.getElementById(&#x27;relacion&#x27;).value;
+
+  if (!furVal) { alert(&#x27;Por favor ingresa la fecha de última regla.&#x27;); return; }
+
+  const fur = new Date(furVal + &#x27;T00:00:00&#x27;);
+  const hoy = new Date();
+  hoy.setHours(0,0,0,0);
+
+  const totalDias = diffDays(fur, hoy);
+  const semanas = Math.floor(totalDias / 7);
+  const diasExtra = totalDias % 7;
+
+  // Ovulación
+  const diaOvul = cicloLen - 14;
+  const ovulacion = addDays(fur, diaOvul);
+  // Fecundación ≈ ovulación
+  const fecundacion = ovulacion;
+  // Implantación ≈ 8-9 días post-fecundación
+  const implantacion = addDays(fecundacion, 9);
+  // β-hCG detectable ≈ 2 días después
+  const inicioHcg = addDays(implantacion, 2);
+  // Edad embrionaria
+  const diasEmbrionarios = diffDays(fecundacion, hoy);
+  const semEmb = Math.floor(diasEmbrionarios / 7);
+  const diasEmb = diasEmbrionarios % 7;
+
+  // FPP (Naegele adaptado)
+  const fpp = addDays(fur, 280 + (cicloLen - 28));
+
+  // Resultado principal
+  document.getElementById(&#x27;r-semanas&#x27;).textContent = `${semanas} sem`;
+  document.getElementById(&#x27;r-dias-extra&#x27;).textContent = diasExtra &gt; 0 ? `${diasExtra} día${diasExtra &gt; 1 ? &#x27;s&#x27; : &#x27;&#x27;} adicional${diasExtra &gt; 1 ? &#x27;es&#x27; : &#x27;&#x27;}` : &#x27;&#x27;;
+  document.getElementById(&#x27;r-fpp&#x27;).innerHTML = `Fecha probable de parto: &lt;strong&gt;${fmtFull(fpp)}&lt;/strong&gt;`;
+
+  document.getElementById(&#x27;r-ovulacion&#x27;).textContent = fmt(ovulacion);
+  document.getElementById(&#x27;r-dia-ovul&#x27;).textContent = diaOvul;
+  document.getElementById(&#x27;r-implantacion&#x27;).textContent = fmt(implantacion);
+  document.getElementById(&#x27;r-inicio-hcg&#x27;).textContent = fmt(inicioHcg);
+  document.getElementById(&#x27;r-ciclo-len&#x27;).textContent = cicloLen;
+
+  if (diasEmbrionarios &gt;= 0) {
+    document.getElementById(&#x27;r-edad-embrionaria&#x27;).textContent = `${semEmb} sem ${diasEmb} d`;
+  } else {
+    document.getElementById(&#x27;r-edad-embrionaria&#x27;).textContent = &#x27;Aún no concebido&#x27;;
+  }
+
+  // Ventana fértil chips
+  const inicioFertil = diaOvul - 4; // 4 días antes
+  const finFertil = diaOvul + 1;    // 1 día después
+  const chipsContainer = document.getElementById(&#x27;r-days-chips&#x27;);
+  chipsContainer.innerHTML = &#x27;&#x27;;
+  for (let i = 1; i &lt;= cicloLen; i++) {
+    const chip = document.createElement(&#x27;span&#x27;);
+    chip.className = &#x27;day-chip&#x27;;
+    const fecha = addDays(fur, i - 1);
+    chip.title = fmt(fecha);
+    if (i === diaOvul) {
+      chip.className = &#x27;day-chip ovulation&#x27;;
+      chip.textContent = `D${i} 🥚`;
+    } else if (i &gt;= inicioFertil &amp;&amp; i &lt;= finFertil) {
+      chip.className = &#x27;day-chip fertile&#x27;;
+      chip.textContent = `D${i}`;
+    } else {
+      chip.textContent = `D${i}`;
+    }
+    chipsContainer.appendChild(chip);
+  }
+
+  // Nota ventana fértil con fechas
+  const inicioFertilDate = addDays(fur, inicioFertil - 1);
+  const finFertilDate = addDays(fur, finFertil - 1);
+  document.getElementById(&#x27;r-nota-relacion&#x27;).textContent =
+    `Ventana fértil: del ${fmt(inicioFertilDate)} al ${fmt(finFertilDate)}. Ovulación estimada: ${fmt(ovulacion)}.`;
+
+  // Evaluación relación sexual
+  if (relacionVal) {
+    const relacion = new Date(relacionVal + &#x27;T00:00:00&#x27;);
+    const diffRel = diffDays(fur, relacion);
+    const diaRelCiclo = diffRel + 1;
+    let evalText = &#x27;&#x27;;
+    let prob = &#x27;&#x27;;
+
+    if (diaRelCiclo &lt; inicioFertil) {
+      evalText = `La relación ocurrió el día ${diaRelCiclo} del ciclo (${fmt(relacion)}), antes del inicio de la ventana fértil (día ${inicioFertil}). Quedan ${inicioFertil - diaRelCiclo} días para el comienzo del período fértil.`;
+      prob = &#x27;⚠️ Probabilidad de concepción: &lt;strong style=&quot;color:#c8687a&quot;&gt;muy baja&lt;/strong&gt; — fuera de ventana fértil.&#x27;;
+    } else if (diaRelCiclo === inicioFertil) {
+      evalText = `La relación ocurrió el día ${diaRelCiclo} del ciclo (${fmt(relacion)}), justo al inicio de la ventana fértil.`;
+      prob = &#x27;🟡 Probabilidad de concepción: &lt;strong style=&quot;color:#c9975a&quot;&gt;posible&lt;/strong&gt; — inicio de ventana fértil.&#x27;;
+    } else if (diaRelCiclo &gt;= inicioFertil + 1 &amp;&amp; diaRelCiclo &lt; diaOvul) {
+      evalText = `La relación ocurrió el día ${diaRelCiclo} del ciclo (${fmt(relacion)}), dentro de la ventana fértil, ${diaOvul - diaRelCiclo} día(s) antes de la ovulación estimada.`;
+      prob = &#x27;🟢 Probabilidad de concepción: &lt;strong style=&quot;color:#5c7a4e&quot;&gt;alta&lt;/strong&gt; — dentro de ventana fértil.&#x27;;
+    } else if (diaRelCiclo === diaOvul) {
+      evalText = `La relación ocurrió exactamente en el día de la ovulación estimada (día ${diaRelCiclo}, ${fmt(relacion)}).`;
+      prob = &#x27;🟢 Probabilidad de concepción: &lt;strong style=&quot;color:#5c7a4e&quot;&gt;muy alta&lt;/strong&gt; — día de ovulación.&#x27;;
+    } else if (diaRelCiclo === diaOvul + 1) {
+      evalText = `La relación ocurrió el día ${diaRelCiclo} del ciclo (${fmt(relacion)}), un día después de la ovulación. El óvulo permanece viable 12–24 horas post-ovulación.`;
+      prob = &#x27;🟡 Probabilidad de concepción: &lt;strong style=&quot;color:#c9975a&quot;&gt;posible&lt;/strong&gt; — óvulo aún viable.&#x27;;
+    } else {
+      evalText = `La relación ocurrió el día ${diaRelCiclo} del ciclo (${fmt(relacion)}), fuera de la ventana fértil (post-ovulatoria).`;
+      prob = &#x27;⚠️ Probabilidad de concepción: &lt;strong style=&quot;color:#c8687a&quot;&gt;muy baja&lt;/strong&gt; — fuera de ventana fértil.&#x27;;
+    }
+
+    document.getElementById(&#x27;r-relacion-eval&#x27;).innerHTML = `${evalText}&lt;br&gt;&lt;br&gt;${prob}`;
+    document.getElementById(&#x27;card-relacion&#x27;).style.display = &#x27;block&#x27;;
+  } else {
+    document.getElementById(&#x27;card-relacion&#x27;).style.display = &#x27;none&#x27;;
+  }
+
+  const hcgInicial = parseFloat(document.getElementById(&#x27;hcg-inicial&#x27;).value) || 5;
+  const horasDuplicacion = parseInt(document.getElementById(&#x27;hcg-duplicacion&#x27;).value) || 60;
+
+  // ── β-hCG estimada hoy ──────────────────────────────────────────────
+  const diasPostImplHoy = diffDays(implantacion, hoy);
+  if (diasPostImplHoy &gt;= 0) {
+    const horasT = diasPostImplHoy * 24;
+    const dupCount = (horasT / horasDuplicacion).toFixed(1);
+
+    // Valor puntual
+    const hcgCalc = hcgInicial * Math.pow(2, horasT / horasDuplicacion);
+
+    // ── 1. IC 95% por propagación log-normal (CV biológico 30%) ──────
+    // σ_ln = sqrt(ln(1 + CV²))  donde CV = 0.30
+    const CV = 0.30;
+    const sigma_ln = Math.sqrt(Math.log(1 + CV * CV));
+    // En escala log: μ_ln = ln(hcgCalc), σ_ln se acumula con las duplicaciones
+    // Factor de incertidumbre crece con el tiempo: σ_total = sigma_ln × sqrt(dupCount)
+    const dupCountNum = horasT / horasDuplicacion;
+    const sigma_total = sigma_ln * Math.sqrt(Math.max(dupCountNum, 1));
+    const z95 = 1.96;
+    const ic95Lo = hcgCalc * Math.exp(-z95 * sigma_total);
+    const ic95Hi = hcgCalc * Math.exp( z95 * sigma_total);
+
+    // ── 2. Rangos de referencia ECLIA del laboratorio (por semana gestacional) ──
+    // Fuente: valores de referencia propios del laboratorio (método ECLIA)
+    // [semEG_min, semEG_max, rango_min, rango_max]
+    const eclia = [
+      [3,  4,  5,      50],
+      [4,  5,  5,      420],
+      [5,  6,  20,     7300],
+      [6,  7,  1050,   56700],
+      [7,  8,  7600,   230000],
+      [9,  12, 25000,  295000],
+      [13, 16, 14000,  250000],
+      [17, 24, 4090,   165200],
+      [24, 40, 3650,   119000],
+    ];
+    const egSemActual = semanas;
+    let ecliaMin = null, ecliaMax = null, ecliaLabel = &#x27;&#x27;;
+    for (const [s0, s1, lo, hi] of eclia) {
+      if (egSemActual &gt;= s0 &amp;&amp; egSemActual &lt; s1) {
+        ecliaMin = lo; ecliaMax = hi;
+        ecliaLabel = `${s0}–${s1} sem`;
+        break;
+      }
+    }
+    // Calcular P50 estimado como media geométrica del rango ECLIA
+    const ecliaP50 = (ecliaMin &amp;&amp; ecliaMax) ? Math.sqrt(ecliaMin * ecliaMax) : null;
+
+    // Verificar si el valor calculado está dentro del rango ECLIA
+    let ecliaStatus = &#x27;&#x27;;
+    if (ecliaMin !== null) {
+      if (hcgCalc &lt; ecliaMin) ecliaStatus = &#x27;⬇️ Por debajo del rango&#x27;;
+      else if (hcgCalc &gt; ecliaMax) ecliaStatus = &#x27;⬆️ Por encima del rango&#x27;;
+      else ecliaStatus = &#x27;✅ Dentro del rango&#x27;;
+    }
+
+    // ── 3. Rango por velocidad de duplicación (48–72 h) ──────────────
+    const hcgMin72 = hcgInicial * Math.pow(2, horasT / 72);
+    const hcgMax48 = hcgInicial * Math.pow(2, horasT / 48);
+
+    // ── Actualizar DOM ────────────────────────────────────────────────
+    const r = v =&gt; Math.round(v).toLocaleString();
+    document.getElementById(&#x27;r-hcg-hoy&#x27;).textContent = `${r(hcgCalc)} mUI/mL`;
+    document.getElementById(&#x27;r-hcg-duplicaciones&#x27;).textContent =
+      `${dupCount} duplicaciones en ${diasPostImplHoy} días (cada ${horasDuplicacion} h)`;
+    document.getElementById(&#x27;r-hcg-formula&#x27;).textContent =
+      `${hcgInicial} × 2^(${horasT}h ÷ ${horasDuplicacion}h) = ${r(hcgCalc)} mUI/mL`;
+    document.getElementById(&#x27;r-sd-log&#x27;).textContent =
+      `σ_ln = ${sigma_ln.toFixed(3)}  |  σ_total (${dupCountNum.toFixed(1)} dup.) = ${sigma_total.toFixed(3)}`;
+
+    // Tabla IC 95%
+    document.getElementById(&#x27;r-ic95-lo&#x27;).textContent  = `${r(ic95Lo)} mUI/mL`;
+    document.getElementById(&#x27;r-ic95-mid&#x27;).textContent = `${r(hcgCalc)} mUI/mL`;
+    document.getElementById(&#x27;r-ic95-hi&#x27;).textContent  = `${r(ic95Hi)} mUI/mL`;
+
+    // Tabla ECLIA laboratorio
+    document.getElementById(&#x27;r-barn-p5&#x27;).textContent  = ecliaMin  ? `${r(ecliaMin)} mUI/mL`  : &#x27;N/D&#x27;;
+    document.getElementById(&#x27;r-barn-p50&#x27;).textContent = ecliaP50  ? `${r(ecliaP50)} mUI/mL`  : &#x27;N/D&#x27;;
+    document.getElementById(&#x27;r-barn-p95&#x27;).textContent = ecliaMax  ? `${r(ecliaMax)} mUI/mL`  : &#x27;N/D&#x27;;
+
+    // Mostrar status dentro/fuera de rango ECLIA
+    const ecliaStatusEl = document.getElementById(&#x27;r-eclia-status&#x27;);
+    if (ecliaStatusEl) {
+      ecliaStatusEl.textContent = ecliaMin ? `${ecliaStatus} ECLIA (${ecliaLabel})` : &#x27;&#x27;;
+      ecliaStatusEl.style.color = hcgCalc &lt; ecliaMin ? &#x27;#c8687a&#x27; : hcgCalc &gt; ecliaMax ? &#x27;#c9975a&#x27; : &#x27;#4a7a4a&#x27;;
+    }
+
+    // Tabla rango duplicación
+    document.getElementById(&#x27;r-dup-lo&#x27;).textContent  = `${r(hcgMin72)} mUI/mL`;
+    document.getElementById(&#x27;r-dup-mid&#x27;).textContent = `${r(hcgCalc)} mUI/mL`;
+    document.getElementById(&#x27;r-dup-hi&#x27;).textContent  = `${r(hcgMax48)} mUI/mL`;
+
+    // Barra visual (escala log)
+    const logLo  = Math.log10(Math.max(ic95Lo, 1));
+    const logHi  = Math.log10(Math.max(ic95Hi, 1));
+    const logMid = Math.log10(Math.max(hcgCalc, 1));
+    const logMin = Math.max(logLo - 0.5, 0);
+    const logMax = logHi + 0.5;
+    const pctLo  = ((logLo - logMin) / (logMax - logMin) * 100).toFixed(1);
+    const pctHi  = ((logHi - logMin) / (logMax - logMin) * 100).toFixed(1);
+    const pctMid = ((logMid - logMin) / (logMax - logMin) * 100).toFixed(1);
+    const barEl  = document.getElementById(&#x27;r-bar-ic&#x27;);
+    const dotEl  = document.getElementById(&#x27;r-bar-punto&#x27;);
+    barEl.style.left  = `${pctLo}%`;
+    barEl.style.width = `${pctHi - pctLo}%`;
+    dotEl.style.left  = `${pctMid}%`;
+    document.getElementById(&#x27;r-bar-lo-lbl&#x27;).textContent  = `${r(ic95Lo)}`;
+    document.getElementById(&#x27;r-bar-mid-lbl&#x27;).textContent = `▲ ${r(hcgCalc)} mUI/mL`;
+    document.getElementById(&#x27;r-bar-hi-lbl&#x27;).textContent  = `${r(ic95Hi)}`;
+
+    document.getElementById(&#x27;r-hcg-estadistica&#x27;).style.display = &#x27;block&#x27;;
+
+  } else {
+    document.getElementById(&#x27;r-hcg-hoy&#x27;).textContent = &#x27;Aún no aplica&#x27;;
+    document.getElementById(&#x27;r-hcg-duplicaciones&#x27;).textContent = &#x27;La implantación no ha ocurrido aún&#x27;;
+    document.getElementById(&#x27;r-hcg-estadistica&#x27;).style.display = &#x27;none&#x27;;
+  }
+
+  // Curva β-hCG — rangos ECLIA del laboratorio por semana gestacional
+  const diasPostImpl = diffDays(implantacion, hoy);
+  // [semana EG inicio, semana EG fin, label, min, max]
+  const puntosEclia = [
+    { semLo: 3,  semHi: 4,  label: &#x27;3–4 sem&#x27;,   min: 5,     max: 50 },
+    { semLo: 4,  semHi: 5,  label: &#x27;4–5 sem&#x27;,   min: 5,     max: 420 },
+    { semLo: 5,  semHi: 6,  label: &#x27;5–6 sem&#x27;,   min: 20,    max: 7300 },
+    { semLo: 6,  semHi: 7,  label: &#x27;6–7 sem&#x27;,   min: 1050,  max: 56700 },
+    { semLo: 7,  semHi: 8,  label: &#x27;7–8 sem&#x27;,   min: 7600,  max: 230000 },
+    { semLo: 9,  semHi: 12, label: &#x27;9–12 sem&#x27;,  min: 25000, max: 295000 },
+    { semLo: 13, semHi: 16, label: &#x27;13–16 sem&#x27;, min: 14000, max: 250000 },
+    { semLo: 17, semHi: 24, label: &#x27;17–24 sem&#x27;, min: 4090,  max: 165200 },
+    { semLo: 24, semHi: 40, label: &#x27;24–40 sem&#x27;, min: 3650,  max: 119000 },
+  ];
+
+  const tbody = document.getElementById(&#x27;r-hcg-body&#x27;);
+  tbody.innerHTML = &#x27;&#x27;;
+  puntosEclia.forEach(p =&gt; {
+    const esCurrent = semanas &gt;= p.semLo &amp;&amp; semanas &lt; p.semHi;
+    const tr = document.createElement(&#x27;tr&#x27;);
+    if (esCurrent) tr.className = &#x27;current&#x27;;
+    tr.innerHTML = `
+      &lt;td&gt;${p.label}${esCurrent ? &#x27;&lt;span class=&quot;badge-current&quot;&gt;ACTUAL&lt;/span&gt;&#x27; : &#x27;&#x27;}&lt;/td&gt;
+      &lt;td&gt;${p.min.toLocaleString()} mUI/mL&lt;/td&gt;
+      &lt;td&gt;${p.max.toLocaleString()} mUI/mL&lt;/td&gt;
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById(&#x27;resultados&#x27;).style.display = &#x27;block&#x27;;
+  document.getElementById(&#x27;resultados&#x27;).scrollIntoView({ behavior: &#x27;smooth&#x27;, block: &#x27;start&#x27; });
+}
+
+// Set default date to today
+window.onload = () =&gt; {
+  const hoy = new Date();
+  const iso = hoy.toISOString().split(&#x27;T&#x27;)[0];
+  // no preselect, leave blank for user
+};
+
+/* ══════════════════════════════════════════
+   EVALUADOR DE DUPLICACIÓN β-hCG
+════════════════════════════════════════════ */
+function evaluarDuplicacion() {
+  const f1 = document.getElementById(&#x27;dup-fecha1&#x27;).value;
+  const f2 = document.getElementById(&#x27;dup-fecha2&#x27;).value;
+  const v1 = parseFloat(document.getElementById(&#x27;dup-val1&#x27;).value);
+  const v2 = parseFloat(document.getElementById(&#x27;dup-val2&#x27;).value);
+
+  if (!f1 || !f2 || isNaN(v1) || isNaN(v2)) {
+    alert(&#x27;Por favor completa todos los campos.&#x27;); return;
+  }
+
+  const fecha1 = new Date(f1 + &#x27;T00:00:00&#x27;);
+  const fecha2 = new Date(f2 + &#x27;T00:00:00&#x27;);
+  const horasEntre = diffDays(fecha1, fecha2) * 24;
+
+  if (horasEntre &lt;= 0) { alert(&#x27;La segunda fecha debe ser posterior a la primera.&#x27;); return; }
+  if (v2 &lt;= 0 || v1 &lt;= 0) { alert(&#x27;Los valores de β-hCG deben ser mayores a 0.&#x27;); return; }
+
+  // Incremento porcentual
+  const incremento = ((v2 - v1) / v1) * 100;
+  // Tiempo de duplicación real (horas)
+  const tDup = (horasEntre * Math.log(2)) / Math.log(v2 / v1);
+  // Valor esperado a 48 h y 72 h
+  const esperado48 = v1 * Math.pow(2, horasEntre / 48);
+  const esperado72 = v1 * Math.pow(2, horasEntre / 72);
+  // Incremento mínimo esperado a las horas transcurridas (basado en t½ de 72h = 66% en 48h)
+  const incrementoMinimo48h = 66; // %
+
+  let clase, icono, interpretacion, detalle;
+
+  if (v2 &lt; v1) {
+    clase = &#x27;caida&#x27;;
+    icono = &#x27;🔴&#x27;;
+    interpretacion = &#x27;Caída de β-hCG&#x27;;
+    detalle = `El valor descendió un ${Math.abs(incremento).toFixed(1)}%. Esto es sugestivo de &lt;strong&gt;aborto en evolución, embarazo anembrionado o embarazo bioquímico&lt;/strong&gt;. Requiere evaluación clínica urgente.`;
+  } else if (tDup &lt;= 48) {
+    clase = &#x27;normal&#x27;;
+    icono = &#x27;🟢&#x27;;
+    interpretacion = &#x27;Duplicación excelente&#x27;;
+    detalle = `Tiempo de duplicación: &lt;strong&gt;${tDup.toFixed(1)} h&lt;/strong&gt; (≤ 48 h). Patrón muy favorable para embarazo intrauterino viable.`;
+  } else if (tDup &lt;= 72) {
+    clase = &#x27;normal&#x27;;
+    icono = &#x27;🟢&#x27;;
+    interpretacion = &#x27;Duplicación normal&#x27;;
+    detalle = `Tiempo de duplicación: &lt;strong&gt;${tDup.toFixed(1)} h&lt;/strong&gt; (48–72 h). Dentro del rango normal. Patrón compatible con embarazo viable.`;
+  } else if (tDup &lt;= 96) {
+    clase = &#x27;lento&#x27;;
+    icono = &#x27;🟡&#x27;;
+    interpretacion = &#x27;Duplicación lenta&#x27;;
+    detalle = `Tiempo de duplicación: &lt;strong&gt;${tDup.toFixed(1)} h&lt;/strong&gt; (&gt; 72 h). Por debajo de lo esperado. Considerar: embarazo ectópico, aborto en evolución o variabilidad biológica. Repetir determinación en 48 h.`;
+  } else {
+    clase = &#x27;caida&#x27;;
+    icono = &#x27;🔴&#x27;;
+    interpretacion = &#x27;Duplicación muy lenta — alerta&#x27;;
+    detalle = `Tiempo de duplicación: &lt;strong&gt;${tDup.toFixed(1)} h&lt;/strong&gt; (&gt; 96 h). Patrón anormal. Alta sospecha de &lt;strong&gt;embarazo ectópico o pérdida gestacional&lt;/strong&gt;. Evaluación clínica y ecográfica urgente.`;
+  }
+
+  const div = document.getElementById(&#x27;dup-resultado&#x27;);
+  div.style.display = &#x27;block&#x27;;
+  div.innerHTML = `
+    &lt;div class=&quot;dup-result ${clase}&quot;&gt;
+      &lt;span class=&quot;dup-big&quot;&gt;${icono} ${interpretacion}&lt;/span&gt;
+      Incremento: &lt;strong&gt;${incremento.toFixed(1)}%&lt;/strong&gt; en ${horasEntre} horas&lt;br&gt;
+      Tiempo de duplicación real: &lt;strong&gt;${isFinite(tDup) &amp;&amp; tDup &gt; 0 ? tDup.toFixed(1) + &#x27; h&#x27; : &#x27;No calculable&#x27;}&lt;/strong&gt;&lt;br&gt;
+      Valor esperado (48 h): ~${Math.round(esperado48).toLocaleString()} mUI/mL &amp;nbsp;|&amp;nbsp; (72 h): ~${Math.round(esperado72).toLocaleString()} mUI/mL&lt;br&gt;&lt;br&gt;
+      ${detalle}
+    &lt;/div&gt;
+    &lt;p class=&quot;note&quot; style=&quot;margin-top:10px&quot;&gt;Interpretación basada en criterios de Barnhart et al. Un resultado anormal siempre debe correlacionarse con clínica y ecografía.&lt;/p&gt;
+  `;
+}
+
+/* ══════════════════════════════════════════
+   LCC → EDAD GESTACIONAL
+════════════════════════════════════════════ */
+function calcularLCC() {
+  const lcc = parseFloat(document.getElementById(&#x27;lcc-mm&#x27;).value);
+  const fechaEcoVal = document.getElementById(&#x27;lcc-fecha&#x27;).value;
+
+  if (isNaN(lcc) || lcc &lt;= 0) { alert(&#x27;Ingresa un valor de LCC válido (mm).&#x27;); return; }
+  if (!fechaEcoVal) { alert(&#x27;Ingresa la fecha de la ecografía.&#x27;); return; }
+
+  if (lcc &lt; 2 || lcc &gt; 84) {
+    alert(&#x27;La fórmula de Robinson es válida para LCC entre 2 y 84 mm (6–14 semanas).&#x27;); return;
+  }
+
+  // Fórmula de Robinson (1975): EG (días) = 8.052 × √LCC + 23.73
+  const egDias = Math.round(8.052 * Math.sqrt(lcc) + 23.73);
+  const egSemanas = Math.floor(egDias / 7);
+  const egDiasResto = egDias % 7;
+
+  const fechaEco = new Date(fechaEcoVal + &#x27;T00:00:00&#x27;);
+  // FPP ecográfica: fecha eco - días gestacionales + 280
+  const fppEco = addDays(fechaEco, 280 - egDias);
+  // FUR ecográfica estimada
+  const furEco = addDays(fechaEco, -egDias);
+
+  // Margen de error ± 5 días (primer trimestre)
+  const fppMin = addDays(fppEco, -5);
+  const fppMax = addDays(fppEco, 5);
+
+  const div = document.getElementById(&#x27;lcc-resultado&#x27;);
+  div.style.display = &#x27;block&#x27;;
+  div.innerHTML = `
+    &lt;div class=&quot;lcc-result&quot;&gt;
+      &lt;div class=&quot;lcc-big&quot;&gt;${egSemanas} sem ${egDiasResto} días&lt;/div&gt;
+      &lt;div class=&quot;lcc-sub&quot;&gt;LCC ${lcc} mm → ${egDias} días gestacionales (Robinson)&lt;/div&gt;
+      &lt;div class=&quot;lcc-fpp&quot;&gt;
+        FPP ecográfica: &lt;strong&gt;${fmtFull(fppEco)}&lt;/strong&gt;&lt;br&gt;
+        Rango (± 5 días): ${fmt(fppMin)} – ${fmt(fppMax)}&lt;br&gt;
+        FUR estimada ecográficamente: ${fmt(furEco)}
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;note&quot; style=&quot;margin-top:10px&quot;&gt;Fórmula de Robinson (1975), válida entre 6–14 semanas. Margen de error ± 3–5 días. En caso de discrepancia &gt; 7 días con la FUR, la edad gestacional ecográfica tiene prioridad clínica.&lt;/p&gt;
+  `;
+}
+
+/* ══════════════════════════════════════════
+   PRÓXIMA MENSTRUACIÓN
+════════════════════════════════════════════ */
+function calcularMenstruacion() {
+  const furVal = document.getElementById(&#x27;mens-fur&#x27;).value;
+  const ciclo = parseInt(document.getElementById(&#x27;mens-ciclo&#x27;).value) || 28;
+
+  if (!furVal) { alert(&#x27;Ingresa la fecha de última regla.&#x27;); return; }
+
+  const fur = new Date(furVal + &#x27;T00:00:00&#x27;);
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+
+  const proximaRegla = addDays(fur, ciclo);
+  const diasFaltantes = diffDays(hoy, proximaRegla);
+
+  // Prueba de embarazo: 1 día después del retraso (ciclo + 1)
+  const pruebaEmbarazo = addDays(fur, ciclo + 1);
+  // Ventana de detección óptima β-hCG en orina: ciclo + 1 a ciclo + 5
+  const pruebaOptima = addDays(fur, ciclo + 3);
+
+  let estadoTexto, estadoColor;
+  if (diasFaltantes &gt; 0) {
+    estadoTexto = `Faltan &lt;strong&gt;${diasFaltantes} día${diasFaltantes &gt; 1 ? &#x27;s&#x27; : &#x27;&#x27;}&lt;/strong&gt; para la próxima regla esperada.`;
+    estadoColor = &#x27;var(--plum)&#x27;;
+  } else if (diasFaltantes === 0) {
+    estadoTexto = `&lt;strong&gt;Hoy&lt;/strong&gt; es la fecha esperada de la próxima regla.`;
+    estadoColor = &#x27;var(--gold)&#x27;;
+  } else {
+    estadoTexto = `Lleva &lt;strong&gt;${Math.abs(diasFaltantes)} día${Math.abs(diasFaltantes) &gt; 1 ? &#x27;s&#x27; : &#x27;&#x27;} de retraso&lt;/strong&gt; menstrual.`;
+    estadoColor = &#x27;var(--rose)&#x27;;
+  }
+
+  const div = document.getElementById(&#x27;mens-resultado&#x27;);
+  div.style.display = &#x27;block&#x27;;
+  div.innerHTML = `
+    &lt;div class=&quot;mens-result&quot;&gt;
+      &lt;div style=&quot;font-size:0.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px&quot;&gt;Próxima menstruación esperada&lt;/div&gt;
+      &lt;div class=&quot;mens-big&quot;&gt;${fmtFull(proximaRegla)}&lt;/div&gt;
+      &lt;div class=&quot;mens-sub&quot; style=&quot;color:${estadoColor};margin-top:8px;font-weight:500&quot;&gt;${estadoTexto}&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;table class=&quot;hcg-table&quot; style=&quot;margin-top:14px&quot;&gt;
+      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Evento&lt;/th&gt;&lt;th&gt;Fecha&lt;/th&gt;&lt;th&gt;Acción&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;&lt;td&gt;Regla esperada&lt;/td&gt;&lt;td&gt;${fmt(proximaRegla)}&lt;/td&gt;&lt;td style=&quot;color:var(--muted);font-size:0.82rem&quot;&gt;Si no aparece...&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;Test de embarazo (orina)&lt;/td&gt;&lt;td&gt;${fmt(pruebaEmbarazo)}&lt;/td&gt;&lt;td style=&quot;color:var(--plum-mid);font-size:0.82rem&quot;&gt;1 día post-retraso&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr class=&quot;current&quot;&gt;&lt;td&gt;Test óptimo &lt;span class=&quot;badge-current&quot;&gt;IDEAL&lt;/span&gt;&lt;/td&gt;&lt;td&gt;${fmt(pruebaOptima)}&lt;/td&gt;&lt;td style=&quot;color:var(--plum-mid);font-size:0.82rem&quot;&gt;3 días post-retraso&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;β-hCG en sangre&lt;/td&gt;&lt;td&gt;${fmt(pruebaEmbarazo)}&lt;/td&gt;&lt;td style=&quot;color:var(--plum-mid);font-size:0.82rem&quot;&gt;Desde día de retraso&lt;/td&gt;&lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;p class=&quot;note&quot; style=&quot;margin-top:12px&quot;&gt;El test en orina detecta β-hCG desde ~25 mUI/mL. La β-hCG sérica detecta desde ~5 mUI/mL y puede ser positiva 1–2 días antes que el test urinario.&lt;/p&gt;
+  `;
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe></main>
+<script>
+(function(){
+var b=document.querySelectorAll('nav button');
+function show(i){
+  b.forEach(function(x,k){x.setAttribute('aria-selected',k==i?'true':'false');});
+  document.querySelectorAll('iframe').forEach(function(f,k){f.hidden=(k!=i);});
+  try{history.replaceState(null,'','#c'+i);}catch(e){}
+}
+b.forEach(function(x){x.addEventListener('click',function(){show(+x.dataset.i);});});
+var m=/^#c(\d)$/.exec(location.hash);if(m&&+m[1]<b.length)show(+m[1]);
+})();
+</script></body></html>
